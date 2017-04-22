@@ -43,6 +43,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\Controls\PrintableDataGrids\PrintableDataGridCell.xaml.cs">
+      <DependentUpon>PrintableDataGridCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Documents\Paginators\IPaginatorSelector.cs" />
+    <Compile Include="Windows\Documents\Printables\ISinglePagePrintable.cs" />
+    <Compile Include="Windows\Documents\Paginators\PaginatorExtension.cs" />
+    <Compile Include="Windows\Documents\Paginators\IPaginator.cs" />
+    <Compile Include="Windows\Documents\Paginators\DefaultPaginatorSelector.cs" />
+    <Compile Include="Windows\Controls\PrintableDataGrids\IPrintableDataGrid.cs" />
+    <Compile Include="Windows\Controls\PrintableDataGrids\IHavePrintableDataGrid.cs" />
+    <Compile Include="Windows\Documents\Paginators\DataGridReportPaginator.cs" />
+    <Compile Include="Windows\Controls\PrintableDataGrids\PrintableDataGrid.xaml.cs">
+      <DependentUpon>PrintableDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\PrintableDataGrids\PrintableDataGridColumn.cs" />
+    <Compile Include="Windows\Controls\ScaleControl.xaml.cs">
+      <DependentUpon>ScaleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Documents\Paginators\SingletonPaginator.cs" />
+    <Compile Include="Windows\Documents\Printables\IDataGridPrintable.cs" />
+    <Compile Include="Windows\Media\VisualTreeHelperExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Windows\Controls\PrintableDataGrids\PrintableDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Controls\PrintableDataGrids\PrintableDataGridCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Controls\ScaleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
