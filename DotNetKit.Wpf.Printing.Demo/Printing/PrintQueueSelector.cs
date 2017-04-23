@@ -54,7 +54,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                     throw new InvalidOperationException("No print queue available.");
                 }
 
-                var defaultPrintQueue = server.DefaultPrintQueue ?? items[0].Value;
+                var defaultPrintQueue = server.DefaultPrintQueue;
+                defaultPrintQueue =
+                    items
+                    .Select(kv => kv.Value)
+                    .FirstOrDefault(kv => kv.FullName == defaultPrintQueue.FullName)
+                    ?? items[0].Value;
+
                 return new PrintQueueSelector(items, defaultPrintQueue, disposable);
             }
             catch (Exception)

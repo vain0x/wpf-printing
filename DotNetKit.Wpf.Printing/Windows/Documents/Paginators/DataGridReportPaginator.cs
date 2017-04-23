@@ -135,6 +135,10 @@ namespace DotNetKit.Windows.Documents
         }
         #endregion
 
+        DataGridPrintablePaginator()
+        {
+        }
+
         public static IPaginator Instance { get; } = new DataGridPrintablePaginator();
     }
 }
