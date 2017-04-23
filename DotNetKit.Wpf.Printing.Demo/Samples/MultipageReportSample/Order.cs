@@ -16,16 +16,15 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
 
         public string Name { get; }
         public int Count { get; }
-        public int UnitPrice { get; }
-        public int TotalPrice { get; }
+        public decimal UnitPrice { get; }
+        public decimal TotalPrice { get; }
         public string Note { get; }
 
         public Order(string name, int unitPrice)
         {
             Name = name;
-            Count = 1;
-            UnitPrice = unitPrice;
-            TotalPrice = unitPrice;
+            Count = Random.Next(1, 2000);
+            TotalPrice = Count * unitPrice;
 
             // Make a multiline note to make pagination non-trivial.
             Note =

@@ -67,7 +67,7 @@
             </TextBlock>
 
             <TextBlock HorizontalAlignment="Center" TextDecorations="Underline">
-                Total $<Run Text="{Binding TotalPrice, Mode=OneTime}" />-
+                Total $<Run Text="{Binding TotalPrice, StringFormat=N0, Mode=OneTime}" />-
             </TextBlock>
 
             <TextBlock HorizontalAlignment="Right">
@@ -90,21 +90,21 @@
                     CellBinding="{Binding Name}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
-                    Header="Count"
+                    Header="Quantity"
                     Width="80"
-                    CellBinding="{Binding Count}"
-                    CellStyle="{StaticResource NumberCellStyle}"
-                    />
-                <printableDataGrid:PrintableDataGridColumn
-                    Header="Unit Price"
-                    Width="80"
-                    CellBinding="{Binding UnitPrice}"
+                    CellBinding="{Binding Count, StringFormat=N0}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Price"
                     Width="120"
-                    CellBinding="{Binding TotalPrice}"
+                    CellBinding="{Binding UnitPrice, StringFormat=N0}"
+                    CellStyle="{StaticResource NumberCellStyle}"
+                    />
+                <printableDataGrid:PrintableDataGridColumn
+                    Header="Total"
+                    Width="120"
+                    CellBinding="{Binding TotalPrice, StringFormat=N0}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn

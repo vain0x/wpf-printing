@@ -13,7 +13,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
     {
         public string TargetName { get; }
         public DateTime OrderDate { get; }
-        public int TotalPrice { get; }
+        public decimal TotalPrice { get; }
         public int PageIndex { get; }
         public int PageCount { get; }
 
@@ -23,7 +23,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
             OrderFormHeader(
                 string targetName,
                 DateTime orderDate,
-                int totalPrice,
+                decimal totalPrice,
                 int pageIndex,
                 int pageCount
             )
