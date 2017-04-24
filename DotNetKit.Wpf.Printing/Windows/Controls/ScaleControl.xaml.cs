@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace DotNetKit.Windows.Controls
 {
     /// <summary>
-    /// Represents a control which contains a UIElement and downscale it if flooded.
+    /// Represents a control which contains a UIElement and downscales it if flooded.
     /// It doesn't upscale.
     /// Basically it contains a TextBlock with text-wrapping or a WrapPanel.
     /// </summary>
