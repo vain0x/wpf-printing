@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DotNetKit.Wpf.Printing.Demo"
+    xmlns:helloWorldSample="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample"
     xmlns:multipageReportSample="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample"
     mc:Ignorable="d"
     Title="MainWindow"
@@ -12,6 +13,10 @@
     Height="768"
     >
     <TabControl>
+        <TabItem Header="Hello World">
+            <helloWorldSample:SampleControl />
+        </TabItem>
+
         <TabItem Header="Multipage">
             <multipageReportSample:SampleControl />
         </TabItem>
