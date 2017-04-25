@@ -29,6 +29,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         public ReactiveProperty<bool> IsLandscape { get; } =
             new ReactiveProperty<bool>(false);
 
+        public ScaleSelector ScaleSelector { get; } =
+            new ScaleSelector();
+
         public PrintQueueSelector PrintQueueSelector { get; }
 
         public ReactiveCommand PreviewCommand { get; } =

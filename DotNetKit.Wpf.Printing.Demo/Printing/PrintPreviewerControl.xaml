@@ -63,28 +63,49 @@
             </StackPanel>
         </Grid>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-            <ItemsControl
-                IsTabStop="False"
-                ItemsSource="{Binding Pages.Value}"
+        
+        <Grid>
+            <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Auto" >
+                <ItemsControl
+                    IsTabStop="False"
+                    ItemsSource="{Binding Pages.Value}"
+                    >
+                    <ItemsControl.LayoutTransform>
+                        <ScaleTransform
+                            ScaleX="{Binding ScaleSelector.Scale.Value}"
+                            ScaleY="{Binding ScaleSelector.Scale.Value}"
+                            />
+                    </ItemsControl.LayoutTransform>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="6,3,6,3">
+                                <Border.Effect>
+                                    <DropShadowEffect Opacity="0.5" />
+                                </Border.Effect>
+                                <Grid
+                                    Width="{Binding PageSize.Width}"
+                                    Height="{Binding PageSize.Height}"
+                                    Background="White"
+                                    >
+                                    <ContentPresenter Content="{Binding Content}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Border
+                Margin="6,3,6,3"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                BorderThickness="1"
+                BorderBrush="Black"
+                Background="White"
                 >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Padding="6,3,6,3">
-                            <Border.Effect>
-                                <DropShadowEffect Opacity="0.5" />
-                            </Border.Effect>
-                            <Grid
-                                Width="{Binding PageSize.Width}"
-                                Height="{Binding PageSize.Height}"
-                                Background="White"
-                                >
-                                <ContentPresenter Content="{Binding Content}" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                <TextBlock Text="{Binding ScaleSelector.ScalePercentage.Value}" />
+            </Border>
+        </Grid>
     </DockPanel>
 </UserControl>

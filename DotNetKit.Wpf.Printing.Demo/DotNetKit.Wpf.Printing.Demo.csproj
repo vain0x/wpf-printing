@@ -95,6 +95,7 @@
     <Compile Include="Printing\Printer.cs" />
     <Compile Include="Printing\PrintPreviewPage.cs" />
     <Compile Include="Printing\PrintQueueSelector.cs" />
+    <Compile Include="Printing\ScaleSelector.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPage.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPageControl.xaml.cs">
       <DependentUpon>HelloWorldPageControl.xaml</DependentUpon>
@@ -180,7 +181,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
