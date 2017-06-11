@@ -18,7 +18,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
         #region IDataGridPrintable
         IEnumerable IDataGridPrintable.Items => Items;
 
-        public object CreatePage(IEnumerable items, int pageIndex, int pageCount)
+        object IDataGridPrintable.CreatePage(IEnumerable items, int pageIndex, int pageCount)
         {
             var header = Header.UpdatePageIndexCount(pageIndex, pageCount);
             return new OrderFormPage(header, items.OfType<Order>().ToArray());
