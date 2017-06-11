@@ -46,10 +46,10 @@ namespace DotNetKit.Windows.Documents
             {
                 var control =
                     VisualTreeHelper.GetChild(presenter, 0)
-                    as IHavePrintableDataGrid;
+                    as IPrintableDataGridContainer;
                 if (control == null)
                 {
-                    throw new InvalidOperationException($"{nameof(DataTemplate)} of printable page must directly generate a control implementing {nameof(IHavePrintableDataGrid)}.");
+                    throw new InvalidOperationException($"{nameof(DataTemplate)} of printable page must directly generate a control implementing {nameof(IPrintableDataGridContainer)}.");
                 }
                 return control.DataGrid;
             }

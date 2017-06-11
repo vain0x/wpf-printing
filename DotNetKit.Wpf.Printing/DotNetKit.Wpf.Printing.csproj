@@ -52,7 +52,7 @@
     <Compile Include="Windows\Documents\Paginators\IPaginator.cs" />
     <Compile Include="Windows\Documents\Paginators\DefaultPaginatorSelector.cs" />
     <Compile Include="Windows\Controls\PrintableDataGrids\IPrintableDataGrid.cs" />
-    <Compile Include="Windows\Controls\PrintableDataGrids\IHavePrintableDataGrid.cs" />
+    <Compile Include="Windows\Controls\PrintableDataGrids\IPrintableDataGridContainer.cs" />
     <Compile Include="Windows\Documents\Paginators\DataGridReportPaginator.cs" />
     <Compile Include="Windows\Controls\PrintableDataGrids\PrintableDataGrid.xaml.cs">
       <DependentUpon>PrintableDataGrid.xaml</DependentUpon>

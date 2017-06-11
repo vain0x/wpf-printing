@@ -11,7 +11,7 @@ namespace DotNetKit.Windows.Documents
     /// <summary>
     /// Represents a printable object
     /// whose <see cref="DataTemplate"/> produces a control
-    /// which implements <see cref="IHavePrintableDataGrid"/>.
+    /// which implements <see cref="IPrintableDataGridContainer"/>.
     /// </summary>
     public interface IDataGridPrintable
     {

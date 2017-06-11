@@ -21,13 +21,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
     /// </summary>
     public partial class OrderFormPageControl
         : UserControl
-        , IHavePrintableDataGrid
+        , IPrintableDataGridContainer
     {
         public OrderFormPageControl()
         {
             InitializeComponent();
         }
 
-        IPrintableDataGrid IHavePrintableDataGrid.DataGrid => dataGrid;
+        IPrintableDataGrid IPrintableDataGridContainer.DataGrid => dataGrid;
     }
 }
