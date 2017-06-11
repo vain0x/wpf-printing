@@ -10,7 +10,7 @@ namespace DotNetKit.Windows.Controls
     public interface IPrintableDataGrid
     {
         Grid Grid { get; }
-        ScrollViewer ScrollViewer { get; }
         int FrozenRowCount { get; }
+        double ActualHeight { get; }
     }
 }
