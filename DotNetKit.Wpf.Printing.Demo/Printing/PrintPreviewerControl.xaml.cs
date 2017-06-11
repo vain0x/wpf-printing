@@ -20,9 +20,21 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     /// </summary>
     public partial class PrintPreviewerControl : UserControl
     {
+        PrintPreviewer Previewer => DataContext as PrintPreviewer;
+
         public PrintPreviewerControl()
         {
             InitializeComponent();
+
+            scrollViewer.PreviewMouseWheel += (sender, e) =>
+            {
+                var previewer = Previewer;
+                if (previewer != null && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+                {
+                    previewer.ScaleSelector.Zoom(e.Delta);
+                    e.Handled = true;
+                }
+            };
         }
     }
 }
