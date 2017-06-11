@@ -26,11 +26,13 @@ namespace DotNetKit.Windows.Controls
         , IPrintableDataGrid
     {
         readonly Grid grid;
-        readonly ScrollViewer scrollViewer;
+        readonly StackPanel stackPanel;
 
-        public Grid Grid => grid;
-        public ScrollViewer ScrollViewer => scrollViewer;
-        public int FrozenRowCount => 1;
+        #region IPrintableDataGrid
+        Grid IPrintableDataGrid.Grid => grid;
+        int IPrintableDataGrid.FrozenRowCount => 1;
+        double IPrintableDataGrid.ActualHeight => ActualHeight;
+        #endregion
 
         readonly ObservableCollection<PrintableDataGridColumn> columns =
             new ObservableCollection<PrintableDataGridColumn>();
@@ -233,14 +235,9 @@ namespace DotNetKit.Windows.Controls
         public PrintableDataGrid()
         {
             grid = new Grid();
-            scrollViewer =
-                new ScrollViewer()
-                {
-                    Content = grid,
-                    VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
-                    HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
-                };
-            Content = scrollViewer;
+            stackPanel = new StackPanel();
+            stackPanel.Children.Add(grid);
+            Content = stackPanel;
 
             InitializeComponent();
         }

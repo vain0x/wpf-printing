@@ -46,10 +46,10 @@ namespace DotNetKit.Windows.Documents
             {
                 var control =
                     VisualTreeHelper.GetChild(presenter, 0)
-                    as IHavePrintableDataGrid;
+                    as IPrintableDataGridContainer;
                 if (control == null)
                 {
-                    throw new InvalidOperationException($"{nameof(DataTemplate)} of printable page must directly generate a control implementing {nameof(IHavePrintableDataGrid)}.");
+                    throw new InvalidOperationException($"{nameof(DataTemplate)} of printable page must directly generate a control implementing {nameof(IPrintableDataGridContainer)}.");
                 }
                 return control.DataGrid;
             }
@@ -57,8 +57,8 @@ namespace DotNetKit.Windows.Documents
             int CountVisibleRows(IPrintableDataGrid dataGrid)
             {
                 var grid = dataGrid.Grid;
-                var scrollViewer = dataGrid.ScrollViewer;
                 var frozenRowCount = dataGrid.FrozenRowCount;
+                var acutalHeight = dataGrid.ActualHeight;
 
                 var totalRowHeight = 0.0;
 
@@ -70,7 +70,7 @@ namespace DotNetKit.Windows.Documents
                 {
                     var rowDefinition = grid.RowDefinitions[frozenRowCount + count];
                     totalRowHeight += rowDefinition.ActualHeight;
-                    if (totalRowHeight > scrollViewer.ViewportHeight) break;
+                    if (totalRowHeight > acutalHeight) break;
 
                     count++;
                 }

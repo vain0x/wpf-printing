@@ -11,7 +11,7 @@ namespace DotNetKit.Windows.Controls
     /// <summary>
     /// Represents a printable control which contains a <see cref="PrintableDataGrid"/>.
     /// </summary>
-    public interface IHavePrintableDataGrid
+    public interface IPrintableDataGridContainer
     {
         IPrintableDataGrid DataGrid { get; }
     }
