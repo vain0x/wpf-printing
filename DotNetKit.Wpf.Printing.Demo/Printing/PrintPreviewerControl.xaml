@@ -104,7 +104,13 @@
                 BorderBrush="Black"
                 Background="White"
                 >
-                <TextBlock Text="{Binding ScaleSelector.ScalePercentage.Value}" />
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="%" />
+
+                    <TextBox
+                        Text="{Binding ScaleSelector.Scale.Value, StringFormat=0.##, Converter={x:Static local:DoublePercentConverter.Instance}}"
+                        />
+                </DockPanel>
             </Border>
         </Grid>
     </DockPanel>

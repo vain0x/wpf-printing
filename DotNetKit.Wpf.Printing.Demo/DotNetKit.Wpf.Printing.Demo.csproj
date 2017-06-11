@@ -88,6 +88,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Printing\MediaSizeSelector.cs" />
+    <Compile Include="Printing\DoublePercentConverter.cs" />
     <Compile Include="Printing\PrintPreviewerControl.xaml.cs">
       <DependentUpon>PrintPreviewerControl.xaml</DependentUpon>
     </Compile>

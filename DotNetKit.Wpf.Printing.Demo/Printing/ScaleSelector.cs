@@ -11,9 +11,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     public class ScaleSelector
     {
         public ReactiveProperty<double> Scale { get; } =
-            new ReactiveProperty<double>(1.0);
-
-        public IReadOnlyReactiveProperty<string> ScalePercentage { get; }
+            new ReactiveProperty<double>(1);
 
         #region Zoom
         double ScaleFactor(int delta)
@@ -29,10 +27,5 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             Scale.Value *= ScaleFactor(delta);
         }
         #endregion
-
-        public ScaleSelector()
-        {
-            ScalePercentage = Scale.Select(scale => $"{Math.Truncate(scale * 100)}%").ToReadOnlyReactiveProperty();
-        }
     }
 }
