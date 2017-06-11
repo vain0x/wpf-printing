@@ -15,7 +15,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
         public OrderFormHeader Header { get; }
         public IReadOnlyList<Order> Items { get; }
 
-        #region IDataGridReport
+        #region IDataGridPrintable
         IEnumerable IDataGridPrintable.Items => Items;
 
         public object CreatePage(IEnumerable items, int pageIndex, int pageCount)
