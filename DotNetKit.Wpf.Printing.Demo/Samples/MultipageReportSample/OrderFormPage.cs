@@ -15,13 +15,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
         public OrderFormHeader Header { get; }
         public IReadOnlyList<Order> Items { get; }
 
-        #region IDataGridReport
+        #region IDataGridPrintable
         IEnumerable IDataGridPrintable.Items => Items;
 
-        public object CreatePage(IEnumerable items, int pageIndex, int pageCount)
+        object IDataGridPrintable.CreatePage(IEnumerable items, int pageIndex, int pageCount)
         {
             var header = Header.UpdatePageIndexCount(pageIndex, pageCount);
-            return new OrderFormPage(header, items.OfType<Order>().ToArray());
+            return new OrderFormPage(header, items.Cast<Order>().ToArray());
         }
         #endregion
 
