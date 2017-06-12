@@ -18,10 +18,10 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
         #region IDataGridPrintable
         IEnumerable<Order> IDataGridPrintable<Order>.Items => Items;
 
-        object IDataGridPrintable<Order>.CreatePage(IEnumerable<Order> items, int pageIndex, int pageCount)
+        object IDataGridPrintable<Order>.CreatePage(IReadOnlyList<Order> items, int pageIndex, int pageCount)
         {
             var header = Header.UpdatePageIndexCount(pageIndex, pageCount);
-            return new OrderFormPage(header, items.ToArray());
+            return new OrderFormPage(header, items);
         }
         #endregion
 
