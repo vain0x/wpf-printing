@@ -34,10 +34,10 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
         /// <summary>
         /// Constructs with random data.
         /// </summary>
-        public OrderFormPage()
+        public OrderFormPage(int count)
         {
             Items =
-                Enumerable.Range(1, 50)
+                Enumerable.Range(1, count)
                 .Select(i => new Order($"Item {i}", i * 100))
                 .ToArray();
             Header =

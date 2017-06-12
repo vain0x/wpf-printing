@@ -98,6 +98,11 @@
     <Compile Include="Printing\PrintQueueSelector.cs" />
     <Compile Include="Printing\ScaleSelector.cs" />
     <Compile Include="Printing\Xps\XpsDocumentWriterExtension.cs" />
+    <Compile Include="Samples\AsynchronousSample\Sample.cs" />
+    <Compile Include="Samples\AsynchronousSample\SampleControl.xaml.cs">
+      <DependentUpon>SampleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\AsynchronousSample\SingleThreadSynchronizationContext.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPage.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPageControl.xaml.cs">
       <DependentUpon>HelloWorldPageControl.xaml</DependentUpon>
@@ -127,6 +132,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Printing\PrintPreviewerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\AsynchronousSample\SampleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
