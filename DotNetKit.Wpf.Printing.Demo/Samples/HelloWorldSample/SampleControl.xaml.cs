@@ -27,9 +27,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
             InitializeComponent();
 
             var previewer =
-                new PrintPreviewer(
+                new PrintPreviewer<HelloWorldPage>(
                     new HelloWorldPage(),
-                    SingletonPaginator.Instance,
+                    SingletonPaginator<HelloWorldPage>.Instance,
                     new Printer(),
                     PrintQueueSelectorModule.FromLocalServer()
                 );

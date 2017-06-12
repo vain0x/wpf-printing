@@ -11,7 +11,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public class Printer
     {
-        public void Print(object printable, IPaginator paginator, Size pageSize, PrintQueue printQueue)
+        public void Print<P>(P printable, IPaginator<P> paginator, Size pageSize, PrintQueue printQueue)
         {
             var isLandscape = pageSize.Width > pageSize.Height;
             var mediaSize =

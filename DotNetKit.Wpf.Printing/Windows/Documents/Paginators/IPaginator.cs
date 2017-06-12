@@ -11,11 +11,11 @@ namespace DotNetKit.Windows.Documents
     /// <summary>
     /// Provides <see cref="Paginate(Size)"/>.
     /// </summary>
-    public interface IPaginator
+    public interface IPaginator<in TPrintable>
     {
         /// <summary>
         /// Paginates the printable into pages.
         /// </summary>
-        IEnumerable Paginate(object printable, Size pageSize);
+        IEnumerable Paginate(TPrintable printable, Size pageSize);
     }
 }

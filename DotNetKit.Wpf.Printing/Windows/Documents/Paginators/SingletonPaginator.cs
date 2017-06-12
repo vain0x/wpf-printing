@@ -11,8 +11,8 @@ namespace DotNetKit.Windows.Documents
     /// <summary>
     /// Represents a paginator to paginate any printable to a single page.
     /// </summary>
-    public sealed class SingletonPaginator
-        : IPaginator
+    public sealed class SingletonPaginator<TPrintable>
+        : IPaginator<TPrintable>
     {
         /// <summary>
         /// Returns a sequence which consists of the specified printable.
@@ -20,7 +20,7 @@ namespace DotNetKit.Windows.Documents
         /// <param name="printable"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public IEnumerable Paginate(object printable, Size pageSize)
+        public IEnumerable Paginate(TPrintable printable, Size pageSize)
         {
             return new[] { printable };
         }
@@ -32,6 +32,7 @@ namespace DotNetKit.Windows.Documents
         /// <summary>
         /// Gets the instance.
         /// </summary>
-        public static IPaginator Instance { get; } = new SingletonPaginator();
+        public static IPaginator<TPrintable> Instance { get; } =
+            new SingletonPaginator<TPrintable>();
     }
 }

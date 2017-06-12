@@ -17,7 +17,7 @@ namespace DotNetKit.Windows.Documents
         /// and converts to a <see cref="FixedDocument"/>.
         /// </summary>
         public static FixedDocument
-            ToFixedDocument(this IPaginator paginator, object printable, Size pageSize)
+            ToFixedDocument<P>(this IPaginator<P> paginator, P printable, Size pageSize)
         {
             var isLandscape = pageSize.Width > pageSize.Height;
             var mediaSize =

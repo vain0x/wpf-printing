@@ -9,6 +9,7 @@
     d:DesignWidth="300"
     d:DesignHeight="300"
     >
+    <!-- DataContext: PrintPreviewer -->
     <DockPanel Background="Silver">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
