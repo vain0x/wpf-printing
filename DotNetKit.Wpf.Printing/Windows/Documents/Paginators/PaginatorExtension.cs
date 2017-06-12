@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace DotNetKit.Windows.Documents
 {
-    public static class PaginatableExtension
+    public static class PaginatorExtension
     {
         /// <summary>
         /// Paginates the specified printable into pages
