@@ -16,6 +16,6 @@ namespace DotNetKit.Windows.Documents
     {
         IEnumerable<TItem> Items { get; }
 
-        object CreatePage(IEnumerable<TItem> items, int pageIndex, int pageCount);
+        object CreatePage(IReadOnlyList<TItem> items, int pageIndex, int pageCount);
     }
 }
