@@ -9,42 +9,13 @@ using System.Windows;
 namespace DotNetKit.Windows.Documents
 {
     /// <summary>
-    /// Provides <see cref="Paginate(Size)"/>.
+    /// Represents a function to paginate a printable.
     /// </summary>
-    public interface IPaginator
+    public interface IPaginator<in TPrintable>
     {
         /// <summary>
         /// Paginates the printable into pages.
         /// </summary>
-        IEnumerable Paginate(object printable, Size pageSize);
-    }
-
-    sealed class AnonymousPaginator<TReport>
-        : IPaginator
-    {
-        readonly Func<TReport, Size, IEnumerable> paginate;
-
-        public IEnumerable Paginate(TReport page, Size pageSize)
-        {
-            return paginate(page, pageSize);
-        }
-
-        IEnumerable IPaginator.Paginate(object printable, Size pageSize)
-        {
-            return Paginate((TReport)printable, pageSize);
-        }
-
-        public AnonymousPaginator(Func<TReport, Size, IEnumerable> paginate)
-        {
-            this.paginate = paginate;
-        }
-    }
-
-    public static class PaginatorModule
-    {
-        public static IPaginator FromFunc<R>(Func<R, Size, IEnumerable> paginate)
-        {
-            return new AnonymousPaginator<R>(paginate);
-        }
+        IEnumerable Paginate(TPrintable printable, Size pageSize);
     }
 }

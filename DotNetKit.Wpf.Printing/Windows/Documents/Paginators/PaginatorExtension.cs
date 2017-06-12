@@ -10,14 +10,14 @@ using System.Windows.Media;
 
 namespace DotNetKit.Windows.Documents
 {
-    public static class PaginatableExtension
+    public static class PaginatorExtension
     {
         /// <summary>
         /// Paginates the specified printable into pages
         /// and converts to a <see cref="FixedDocument"/>.
         /// </summary>
         public static FixedDocument
-            ToFixedDocument(this IPaginator paginator, object printable, Size pageSize)
+            ToFixedDocument<P>(this IPaginator<P> paginator, P printable, Size pageSize)
         {
             var isLandscape = pageSize.Width > pageSize.Height;
             var mediaSize =

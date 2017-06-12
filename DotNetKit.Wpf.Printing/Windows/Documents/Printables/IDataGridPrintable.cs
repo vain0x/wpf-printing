@@ -10,14 +10,12 @@ using DotNetKit.Windows.Controls;
 namespace DotNetKit.Windows.Documents
 {
     /// <summary>
-    /// Represents a printable object
-    /// whose <see cref="DataTemplate"/> produces a control
-    /// which implements <see cref="IPrintableDataGridContainer"/>.
+    /// Represents a printable object which contains a collection.
     /// </summary>
-    public interface IDataGridPrintable
+    public interface IDataGridPrintable<TItem>
     {
-        IEnumerable Items { get; }
+        IEnumerable<TItem> Items { get; }
 
-        object CreatePage(IEnumerable items, int pageIndex, int pageCount);
+        object CreatePage(IEnumerable<TItem> items, int pageIndex, int pageCount);
     }
 }

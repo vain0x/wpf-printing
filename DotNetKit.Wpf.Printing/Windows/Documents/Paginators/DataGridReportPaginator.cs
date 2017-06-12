@@ -13,14 +13,14 @@ using DotNetKit.Windows.Media;
 
 namespace DotNetKit.Windows.Documents
 {
-    public sealed class DataGridPrintablePaginator
-        : IPaginator
+    public sealed class DataGridPrintablePaginator<TItem>
+        : IPaginator<IDataGridPrintable<TItem>>
     {
         #region Paginate
         sealed class PaginateFunction
         {
-            readonly IDataGridPrintable printable;
-            readonly object[] allItems;
+            readonly IDataGridPrintable<TItem> printable;
+            readonly TItem[] allItems;
             readonly Size pageSize;
 
             int index;
@@ -28,7 +28,7 @@ namespace DotNetKit.Windows.Documents
 
             ContentPresenter PagePresenterFromRestItems()
             {
-                var restItems = new ArraySegment<object>(allItems, index, allItems.Length - index);
+                var restItems = new ArraySegment<TItem>(allItems, index, allItems.Length - index);
                 var presenter =
                     new ContentPresenter()
                     {
@@ -83,7 +83,7 @@ namespace DotNetKit.Windows.Documents
                 return count;
             }
 
-            object[] PagesFromChunks(List<ArraySegment<object>> chunks)
+            object[] PagesFromChunks(List<ArraySegment<TItem>> chunks)
             {
                 var pages = new object[chunks.Count];
                 for (var i = 0; i < chunks.Count; i++)
@@ -95,7 +95,7 @@ namespace DotNetKit.Windows.Documents
 
             public IEnumerable Paginate()
             {
-                var chunks = new List<ArraySegment<object>>();
+                var chunks = new List<ArraySegment<TItem>>();
 
                 while (index < allItems.Length)
                 {
@@ -103,7 +103,7 @@ namespace DotNetKit.Windows.Documents
                     var dataGrid = DataGridFromPagePresenter(presenter);
                     var count = CountVisibleRows(dataGrid);
 
-                    chunks.Add(new ArraySegment<object>(allItems, index, count));
+                    chunks.Add(new ArraySegment<TItem>(allItems, index, count));
                     index += count;
                     pageIndex++;
                 }
@@ -111,7 +111,7 @@ namespace DotNetKit.Windows.Documents
                 return PagesFromChunks(chunks);
             }
 
-            public PaginateFunction(IDataGridPrintable printable, object[] allItems, Size pageSize)
+            public PaginateFunction(IDataGridPrintable<TItem> printable, TItem[] allItems, Size pageSize)
             {
                 this.printable = printable;
                 this.pageSize = pageSize;
@@ -119,19 +119,10 @@ namespace DotNetKit.Windows.Documents
             }
         }
 
-        public IEnumerable
-            Paginate(
-                IDataGridPrintable printable,
-                Size pageSize
-            )
+        public IEnumerable Paginate(IDataGridPrintable<TItem> printable, Size pageSize)
         {
-            var allItems = printable.Items.Cast<object>().ToArray();
+            var allItems = printable.Items.ToArray();
             return new PaginateFunction(printable, allItems, pageSize).Paginate();
-        }
-
-        IEnumerable IPaginator.Paginate(object printable, Size pageSize)
-        {
-            return Paginate((IDataGridPrintable)printable, pageSize);
         }
         #endregion
 
@@ -139,6 +130,7 @@ namespace DotNetKit.Windows.Documents
         {
         }
 
-        public static IPaginator Instance { get; } = new DataGridPrintablePaginator();
+        public static IPaginator<IDataGridPrintable<TItem>> Instance { get; } =
+            new DataGridPrintablePaginator<TItem>();
     }
 }

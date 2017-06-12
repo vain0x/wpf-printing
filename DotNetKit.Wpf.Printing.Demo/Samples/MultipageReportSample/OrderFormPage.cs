@@ -10,18 +10,18 @@ using DotNetKit.Windows.Documents;
 namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
 {
     public sealed class OrderFormPage
-        : IDataGridPrintable
+        : IDataGridPrintable<Order>
     {
         public OrderFormHeader Header { get; }
         public IReadOnlyList<Order> Items { get; }
 
         #region IDataGridPrintable
-        IEnumerable IDataGridPrintable.Items => Items;
+        IEnumerable<Order> IDataGridPrintable<Order>.Items => Items;
 
-        object IDataGridPrintable.CreatePage(IEnumerable items, int pageIndex, int pageCount)
+        object IDataGridPrintable<Order>.CreatePage(IEnumerable<Order> items, int pageIndex, int pageCount)
         {
             var header = Header.UpdatePageIndexCount(pageIndex, pageCount);
-            return new OrderFormPage(header, items.Cast<Order>().ToArray());
+            return new OrderFormPage(header, items.ToArray());
         }
         #endregion
 

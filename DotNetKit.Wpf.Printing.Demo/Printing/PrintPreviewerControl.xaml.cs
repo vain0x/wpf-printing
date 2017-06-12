@@ -20,7 +20,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     /// </summary>
     public partial class PrintPreviewerControl : UserControl
     {
-        PrintPreviewer Previewer => DataContext as PrintPreviewer;
+        IPrintPreviewer Previewer => DataContext as IPrintPreviewer;
 
         public PrintPreviewerControl()
         {

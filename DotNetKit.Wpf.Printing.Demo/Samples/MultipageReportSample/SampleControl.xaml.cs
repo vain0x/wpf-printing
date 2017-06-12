@@ -27,9 +27,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
             InitializeComponent();
 
             var previewer =
-                new PrintPreviewer(
+                new PrintPreviewer<OrderFormPage>(
                     new OrderFormPage(),
-                    DataGridPrintablePaginator.Instance,
+                    DataGridPrintablePaginator<Order>.Instance,
                     new Printer(),
                     PrintQueueSelectorModule.FromLocalServer()
                 );

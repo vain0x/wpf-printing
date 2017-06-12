@@ -11,11 +11,17 @@ using Reactive.Bindings;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
-    public class PrintPreviewer
+    public interface IPrintPreviewer
         : IDisposable
     {
-        readonly object printable;
-        readonly IPaginator paginator;
+        ScaleSelector ScaleSelector { get; }
+    }
+
+    public class PrintPreviewer<TPrintable>
+        : IPrintPreviewer
+    {
+        readonly TPrintable printable;
+        readonly IPaginator<TPrintable> paginator;
         readonly Printer printer;
 
         static IReadOnlyList<PrintPreviewPage> emptyPages = new PrintPreviewPage[] { };
@@ -74,7 +80,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             PrintQueueSelector.Dispose();
         }
 
-        public PrintPreviewer(object printable, IPaginator paginator, Printer printer, PrintQueueSelector printQueueSelector)
+        public
+            PrintPreviewer(
+                TPrintable printable,
+                IPaginator<TPrintable> paginator,
+                Printer printer,
+                PrintQueueSelector printQueueSelector
+            )
         {
             this.printable = printable;
             this.paginator = paginator;
