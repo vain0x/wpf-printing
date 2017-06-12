@@ -9,7 +9,7 @@ using System.Windows;
 namespace DotNetKit.Windows.Documents
 {
     /// <summary>
-    /// Provides <see cref="Paginate(Size)"/>.
+    /// Represents a function to paginate a printable.
     /// </summary>
     public interface IPaginator<in TPrintable>
     {
