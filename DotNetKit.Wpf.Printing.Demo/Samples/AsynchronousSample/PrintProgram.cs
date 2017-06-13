@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             }
         }
 
-        static void PrintMain()
+        static void PrintMain(IDisposable disposable)
         {
             var dispatcher = Dispatcher.CurrentDispatcher;
             var context = new DispatcherSynchronizationContext(dispatcher);
@@ -48,6 +49,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
 
             mainWindow.Closed += (sender, e) =>
             {
+                disposable.Dispose();
                 printQueueSelector.Dispose();
                 dispatcher.InvokeShutdown();
             };
@@ -58,10 +60,16 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
 
         public static void StartNew()
         {
-            var printThread = new Thread(PrintMain);
+            var disposable = new SingleAssignmentDisposable();
+
+            var printThread = new Thread(() => PrintMain(disposable));
             printThread.SetApartmentState(ApartmentState.STA);
             printThread.Name = "printer-thread";
             printThread.Start();
+
+            var onExit = new ExitEventHandler((sender, e) => printThread.Abort());
+            Application.Current.Exit += onExit;
+            disposable.Disposable = Disposable.Create(() => Application.Current.Exit -= onExit);
         }
     }
 }
