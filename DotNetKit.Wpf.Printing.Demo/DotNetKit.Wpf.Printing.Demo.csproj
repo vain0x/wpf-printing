@@ -106,7 +106,6 @@
     <Compile Include="Samples\AsynchronousSample\SampleControl.xaml.cs">
       <DependentUpon>SampleControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\AsynchronousSample\SingleThreadSynchronizationContext.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPage.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPageControl.xaml.cs">
       <DependentUpon>HelloWorldPageControl.xaml</DependentUpon>

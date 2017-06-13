@@ -16,24 +16,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
 {
     public sealed class PrintingController
     {
-        struct CancellableTask
-        {
-            public Task Task { get; }
-            public CancellationTokenSource CancellationTokenSource { get; }
-            public bool IsDefault => Task == null;
-
-            public void Cancel()
-            {
-                CancellationTokenSource?.Cancel();
-            }
-
-            public CancellableTask(Task task, CancellationTokenSource cancellationTokenSource)
-            {
-                Task = task;
-                CancellationTokenSource = cancellationTokenSource;
-            }
-        }
-
         public PrintQueueSelector PrintQueueSelector { get; }
 
         public ReactiveCommand PrintCommand { get; }
