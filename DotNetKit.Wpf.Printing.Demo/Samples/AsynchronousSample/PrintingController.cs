@@ -53,7 +53,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                 .Select(cts => cts != null)
                 .ToReactiveCommand(scheduler);
 
-            CancelCommand.ObserveOn(context).Subscribe(_ =>
+            CancelCommand.Subscribe(_ =>
             {
                 var cts = currentCts.Value;
                 if (cts != null)
@@ -63,7 +63,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                 }
             });
 
-            PrintCommand.ObserveOn(context).Select(async parameter =>
+            PrintCommand.Select(async parameter =>
             {
                 var printQueue = PrintQueueSelector.SelectedPrintQueue.Value;
                 var cts = new CancellationTokenSource();
