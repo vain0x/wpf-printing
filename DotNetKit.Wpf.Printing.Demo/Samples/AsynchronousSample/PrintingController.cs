@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Text;
@@ -13,7 +14,7 @@ using Reactive.Bindings;
 
 namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
 {
-    public sealed class Sample
+    public sealed class PrintingController
     {
         struct CancellableTask
         {
@@ -45,19 +46,30 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             new ReactiveProperty<CancellationTokenSource>();
 
         public
-            Sample(
+            PrintingController(
                 PrintQueueSelector printQueueSelector,
                 Func<PrintQueue, CancellationToken, Task> printAsync,
                 SynchronizationContext context
             )
         {
+            var scheduler = new SynchronizationContextScheduler(context);
+
             PrintQueueSelector = printQueueSelector;
 
-            IsPrinting = currentCts.Select(cts => cts != null).ToReadOnlyReactiveProperty();
+            IsPrinting =
+                currentCts
+                .Select(cts => cts != null)
+                .ToReadOnlyReactiveProperty(eventScheduler: scheduler);
 
-            PrintCommand = IsPrinting.Select(isPrinting => !isPrinting).ToReactiveCommand();
+            PrintCommand =
+                IsPrinting
+                .Select(isPrinting => !isPrinting)
+                .ToReactiveCommand(scheduler);
 
-            CancelCommand = currentCts.Select(cts => cts != null).ToReactiveCommand();
+            CancelCommand =
+                currentCts
+                .Select(cts => cts != null)
+                .ToReactiveCommand(scheduler);
 
             CancelCommand.ObserveOn(context).Subscribe(_ =>
             {
@@ -76,10 +88,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                 currentCts.Value = cts;
                 try
                 {
-                    await printAsync(printQueue, cts.Token).ContinueWith(_ =>
-                    {
-                        Console.WriteLine("continue");
-                    }).ConfigureAwait(false);
+                    await printAsync(printQueue, cts.Token);
                 }
                 finally
                 {

@@ -98,7 +98,11 @@
     <Compile Include="Printing\PrintQueueSelector.cs" />
     <Compile Include="Printing\ScaleSelector.cs" />
     <Compile Include="Printing\Xps\XpsDocumentWriterExtension.cs" />
-    <Compile Include="Samples\AsynchronousSample\Sample.cs" />
+    <Compile Include="Samples\AsynchronousSample\PrintProgram.cs" />
+    <Compile Include="Samples\AsynchronousSample\PrintingControllerWindow.xaml.cs">
+      <DependentUpon>PrintingControllerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\AsynchronousSample\PrintingController.cs" />
     <Compile Include="Samples\AsynchronousSample\SampleControl.xaml.cs">
       <DependentUpon>SampleControl.xaml</DependentUpon>
     </Compile>
@@ -132,6 +136,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Printing\PrintPreviewerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\AsynchronousSample\PrintingControllerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

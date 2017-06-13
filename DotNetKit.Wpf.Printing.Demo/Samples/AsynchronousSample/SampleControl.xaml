@@ -10,45 +10,11 @@
     d:DesignWidth="300"
     d:DesignHeight="300"
     >
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <Grid>
-        <!-- Tiny printer control (no preview). -->
-        <GroupBox Header="Printer Controller" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal">
-                <ComboBox
-                    Margin="6,3,6,3"
-                    DataContext="{Binding PrintQueueSelector}"
-                    ItemsSource="{Binding Items}"
-                    SelectedValue="{Binding SelectedPrintQueue.Value}"
-                    DisplayMemberPath="Key"
-                    SelectedValuePath="Value"
-                    />
-                <Button
-                    Margin="6,3,6,3"
-                    Content="Print"
-                    Command="{Binding PrintCommand}"
-                    />
-            </StackPanel>
-        </GroupBox>
-
-        <!-- Overlayer. -->
-        <Grid Visibility="{Binding IsPrinting.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border
-                Opacity="0.5"
-                Background="Black"
-                />
-
-            <Button
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Content="Cancel"
-                Command="{Binding CancelCommand}"
-                />
-        </Grid>
-    </Grid>
+    <Button
+        x:Name="openButton"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Content="Open Printing Dialog"
+        Click="openButton_Click"
+        />
 </UserControl>
