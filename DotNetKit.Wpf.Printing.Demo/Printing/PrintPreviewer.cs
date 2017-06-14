@@ -69,10 +69,10 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                 .ToArray();
         }
 
-        public void Print()
+        public Task PrintAsync()
         {
             var printQueue = PrintQueueSelector.SelectedPrintQueue.Value;
-            printer.Print(printable, paginator, PageSize, printQueue);
+            return printer.PrintAsync(printable, paginator, PageSize, printQueue);
         }
 
         public void Dispose()
@@ -94,7 +94,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             PrintQueueSelector = printQueueSelector;
 
             PreviewCommand.Subscribe(_ => UpdatePreview());
-            PrintCommand.Subscribe(_ => Print());
+            PrintCommand.Subscribe(_ => PrintAsync());
         }
     }
 }

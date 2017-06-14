@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:DotNetKit.Wpf.Printing.Demo"
     xmlns:helloWorldSample="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample"
     xmlns:multipageReportSample="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample"
+    xmlns:asynchronousSample="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample"
     mc:Ignorable="d"
     Title="MainWindow"
     Width="1024"
@@ -19,6 +20,10 @@
 
         <TabItem Header="Multipage">
             <multipageReportSample:SampleControl />
+        </TabItem>
+
+        <TabItem Header="Async">
+            <asynchronousSample:SampleControl />
         </TabItem>
     </TabControl>
 </Window>
