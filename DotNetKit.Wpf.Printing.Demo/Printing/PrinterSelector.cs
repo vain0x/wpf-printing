@@ -12,17 +12,17 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     /// <summary>
     /// Represents a selector to choose a printer.
     /// </summary>
-    public sealed class PrintQueueSelector
+    public sealed class PrinterSelector
         : BindableBase
         , IDisposable
     {
-        public IReadOnlyList<KeyValuePair<string, PrintQueue>> Items { get; }
+        public IReadOnlyList<IPrinter> Items { get; }
 
-        PrintQueue selectedPrintQueue;
-        public PrintQueue SelectedPrintQueue
+        IPrinter selectedPrinter;
+        public IPrinter SelectedPrinter
         {
-            get { return selectedPrintQueue; }
-            set { SetProperty(ref selectedPrintQueue, value); }
+            get { return selectedPrinter; }
+            set { SetProperty(ref selectedPrinter, value); }
         }
 
         readonly LocalPrintServer localPrintServer;
@@ -34,9 +34,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             printQueueCollection.Dispose();
         }
 
-        PrintQueueSelector(
-            IReadOnlyList<KeyValuePair<string, PrintQueue>> items,
-            PrintQueue defaultPrintQueue,
+        PrinterSelector(
+            IReadOnlyList<IPrinter> items,
+            IPrinter defaultPrinter,
             LocalPrintServer localPrintServer,
             PrintQueueCollection printQueueCollection
         )
@@ -45,34 +45,29 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             this.printQueueCollection = printQueueCollection;
 
             Items = items;
-            SelectedPrintQueue = defaultPrintQueue;
+            SelectedPrinter = defaultPrinter;
         }
 
-        public static PrintQueueSelector FromLocalServer()
+        public static PrinterSelector FromLocalServer()
         {
             var server = new LocalPrintServer();
             var queues = server.GetPrintQueues();
 
             try
             {
-                var items =
-                    queues
-                    .Select(q => new KeyValuePair<string, PrintQueue>(q.Name, q))
-                    .ToArray();
+                var items = queues.Select(q => new Printer(q)).ToArray();
 
                 if (items.Length == 0)
                 {
                     throw new InvalidOperationException("No print queue available.");
                 }
 
-                var defaultPrintQueue = server.DefaultPrintQueue;
-                defaultPrintQueue =
-                    items
-                    .Select(kv => kv.Value)
-                    .FirstOrDefault(kv => kv.FullName == defaultPrintQueue.FullName)
-                    ?? items[0].Value;
+                var defaultPrinter = new Printer(server.DefaultPrintQueue);
+                defaultPrinter =
+                    items.FirstOrDefault(p => p.Name == defaultPrinter.Name)
+                    ?? items[0];
 
-                return new PrintQueueSelector(items, defaultPrintQueue, server, queues);
+                return new PrinterSelector(items, defaultPrinter, server, queues);
             }
             catch (Exception)
             {

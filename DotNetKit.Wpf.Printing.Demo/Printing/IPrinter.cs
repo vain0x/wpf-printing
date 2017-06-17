@@ -12,23 +12,20 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public interface IPrinter
     {
+        string Name { get; }
+
         void
             Print<P>(
                 P printable,
                 IPaginator<P> paginator,
-                Size pageSize,
-                PrintQueue printQueue
+                Size pageSize
             );
-    }
 
-    public interface IAsyncPrinter
-    {
         Task
             PrintAsync<P>(
                 P printable,
                 IPaginator<P> paginator,
                 Size pageSize,
-                PrintQueue printQueue,
                 CancellationToken cancellationToken = default(CancellationToken)
             );
     }

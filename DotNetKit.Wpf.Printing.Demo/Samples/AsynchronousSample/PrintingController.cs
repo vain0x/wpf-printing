@@ -5,7 +5,10 @@ using System.Printing;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -14,7 +17,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
     public sealed class PrintingController
         : BindableBase
     {
-        public PrintQueueSelector PrintQueueSelector { get; }
+        public PrinterSelector PrinterSelector { get; }
 
         public DelegateCommand PrintCommand { get; }
 
@@ -40,13 +43,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             }
         }
 
-        public
-            PrintingController(
-                PrintQueueSelector printQueueSelector,
-                Func<PrintQueue, CancellationToken, Task> printAsync
-            )
+        public PrintingController(PrinterSelector printerSelector)
         {
-            PrintQueueSelector = printQueueSelector;
+            PrinterSelector = printerSelector;
 
             CancelCommand =
                 new DelegateCommand(
@@ -66,12 +65,16 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                 new DelegateCommand(
                     async () =>
                     {
-                        var printQueue = PrintQueueSelector.SelectedPrintQueue;
+                        var printable = new OrderFormPage();
+                        var pageSize = new Size(793.7, 1122.52);
+                        var paginator = DataGridPrintablePaginator<Order>.Instance;
+
+                        var printer = PrinterSelector.SelectedPrinter;
                         var cts = new CancellationTokenSource();
                         CurrentCts = cts;
                         try
                         {
-                            await printAsync(printQueue, cts.Token);
+                            await printer.PrintAsync(printable, paginator, pageSize, cts.Token);
                         }
                         finally
                         {

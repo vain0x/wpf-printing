@@ -76,7 +76,7 @@
     <Compile Include="Printing\PrintPreviewer.cs" />
     <Compile Include="Printing\Printer.cs" />
     <Compile Include="Printing\PrintPreviewPage.cs" />
-    <Compile Include="Printing\PrintQueueSelector.cs" />
+    <Compile Include="Printing\PrinterSelector.cs" />
     <Compile Include="Printing\ScaleSelector.cs" />
     <Compile Include="Printing\Xps\XpsDocumentWriterExtension.cs" />
     <Compile Include="Samples\AsynchronousSample\PrintProgram.cs" />

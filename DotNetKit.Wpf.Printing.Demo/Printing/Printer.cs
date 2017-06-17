@@ -15,8 +15,14 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public sealed class Printer
         : IPrinter
-        , IAsyncPrinter
     {
+        readonly PrintQueue printQueue;
+
+        public string Name
+        {
+            get { return printQueue.Name; }
+        }
+
         sealed class PrintFunction<TPrintable>
         {
             readonly TPrintable printable;
@@ -85,8 +91,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             Print<P>(
                 P printable,
                 IPaginator<P> paginator,
-                Size pageSize,
-                PrintQueue printQueue
+                Size pageSize
             )
         {
             new PrintFunction<P>(
@@ -103,7 +108,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                 P printable,
                 IPaginator<P> paginator,
                 Size pageSize,
-                PrintQueue printQueue,
                 CancellationToken cancellationToken = default(CancellationToken)
             )
         {
@@ -115,6 +119,11 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                     printQueue,
                     cancellationToken
                 ).PrintAsync();
+        }
+
+        public Printer(PrintQueue printQueue)
+        {
+            this.printQueue = printQueue;
         }
     }
 }

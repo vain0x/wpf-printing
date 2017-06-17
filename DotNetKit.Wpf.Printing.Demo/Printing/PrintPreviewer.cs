@@ -24,7 +24,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     {
         readonly TPrintable printable;
         readonly IPaginator<TPrintable> paginator;
-        readonly IPrinter printer;
 
         static readonly IReadOnlyList<PrintPreviewPage> emptyPages = new PrintPreviewPage[] { };
 
@@ -48,7 +47,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         public ScaleSelector ScaleSelector { get; } =
             new ScaleSelector();
 
-        public PrintQueueSelector PrintQueueSelector { get; }
+        public PrinterSelector PrinterSelector { get; }
 
         public DelegateCommand PreviewCommand { get; }
 
@@ -78,27 +77,25 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
         public void Print()
         {
-            var printQueue = PrintQueueSelector.SelectedPrintQueue;
-            printer.Print(printable, paginator, PageSize, printQueue);
+            var printer = PrinterSelector.SelectedPrinter;
+            printer.Print(printable, paginator, PageSize);
         }
 
         public void Dispose()
         {
-            PrintQueueSelector.Dispose();
+            PrinterSelector.Dispose();
         }
 
         public
             PrintPreviewer(
                 TPrintable printable,
                 IPaginator<TPrintable> paginator,
-                IPrinter printer,
-                PrintQueueSelector printQueueSelector
+                PrinterSelector printerSelector
             )
         {
             this.printable = printable;
             this.paginator = paginator;
-            this.printer = printer;
-            PrintQueueSelector = printQueueSelector;
+            PrinterSelector = printerSelector;
 
             PreviewCommand = new DelegateCommand(UpdatePreview);
             PrintCommand = new DelegateCommand(Print);

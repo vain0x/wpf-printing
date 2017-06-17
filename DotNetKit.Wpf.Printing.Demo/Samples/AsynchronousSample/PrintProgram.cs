@@ -15,39 +15,20 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
 {
     public static class PrintProgram
     {
-        sealed class MyPrinter
-        {
-            readonly OrderFormPage printable = new OrderFormPage();
-
-            static readonly IPaginator<IDataGridPrintable<Order>> paginator =
-                DataGridPrintablePaginator<Order>.Instance;
-
-            static readonly Size pageSize = new Size(793.7, 1122.52);
-
-            public Task PrintAsync(PrintQueue printQueue, CancellationToken cancellationToken)
-            {
-                return new Printer().PrintAsync(printable, paginator, pageSize, printQueue, cancellationToken);
-            }
-        }
-
         static void PrintMain()
         {
             var dispatcher = Dispatcher.CurrentDispatcher;
             var context = new DispatcherSynchronizationContext(dispatcher);
             SynchronizationContext.SetSynchronizationContext(context);
 
-            var printQueueSelector = PrintQueueSelector.FromLocalServer();
-            var printingController =
-                new PrintingController(
-                    printQueueSelector,
-                    new MyPrinter().PrintAsync
-                );
+            var printerSelector = PrinterSelector.FromLocalServer();
+            var printingController = new PrintingController(printerSelector);
             var mainWindow =
                 new PrintingControllerWindow() { DataContext = printingController };
 
             mainWindow.Closed += (sender, e) =>
             {
-                printQueueSelector.Dispose();
+                printerSelector.Dispose();
                 dispatcher.InvokeShutdown();
             };
 
