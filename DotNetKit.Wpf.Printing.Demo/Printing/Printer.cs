@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
 
@@ -13,6 +14,57 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public class Printer
     {
+        sealed class PrintFunction<TPrintable>
+        {
+            readonly TPrintable printable;
+            readonly IPaginator<TPrintable> paginator;
+            readonly Size pageSize;
+            readonly PrintQueue printQueue;
+            readonly CancellationToken cancellationToken;
+
+            readonly bool isLandscape;
+            readonly Size mediaSize;
+
+            void Setup()
+            { 
+                var ticket = printQueue.DefaultPrintTicket;
+                ticket.PageMediaSize = new PageMediaSize(mediaSize.Width, mediaSize.Height);
+                ticket.PageOrientation = PageOrientation.Portrait;
+            }
+
+            FixedDocument Document()
+            {
+                return paginator.ToFixedDocument(printable, pageSize);
+            }
+
+            public Task PrintAsync()
+            {
+                Setup();
+                var document = Document();
+                var writer = PrintQueue.CreateXpsDocumentWriter(printQueue);
+                return writer.WriteAsyncAsTask(document, cancellationToken);
+            }
+
+            public
+                PrintFunction(
+                    TPrintable printable,
+                    IPaginator<TPrintable> paginator,
+                    Size pageSize,
+                    PrintQueue printQueue,
+                    CancellationToken cancellationToken
+                )
+            {
+                this.printable = printable;
+                this.paginator = paginator;
+                this.pageSize = pageSize;
+                this.printQueue = printQueue;
+                this.cancellationToken = cancellationToken;
+
+                isLandscape = pageSize.Width > pageSize.Height;
+                mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
+            }
+        }
+
         public Task
             PrintAsync<P>(
                 P printable,
@@ -22,20 +74,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                 CancellationToken cancellationToken = default(CancellationToken)
             )
         {
-            var isLandscape = pageSize.Width > pageSize.Height;
-            var mediaSize =
-                isLandscape
-                    ? new Size(pageSize.Height, pageSize.Width)
-                    : pageSize;
-
-            var document = paginator.ToFixedDocument(printable, pageSize);
-
-            var ticket = printQueue.DefaultPrintTicket;
-            ticket.PageMediaSize = new PageMediaSize(mediaSize.Width, mediaSize.Height);
-            ticket.PageOrientation = PageOrientation.Portrait;
-
-            var writer = PrintQueue.CreateXpsDocumentWriter(printQueue);
-            return writer.WriteAsyncAsTask(document, cancellationToken);
+            return
+                new PrintFunction<P>(printable, paginator, pageSize, printQueue, cancellationToken)
+                .PrintAsync();
         }
     }
 }
