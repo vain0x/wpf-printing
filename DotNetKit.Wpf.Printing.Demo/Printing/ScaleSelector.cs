@@ -2,16 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public class ScaleSelector
+        : BindableBase
     {
-        public ReactiveProperty<double> Scale { get; } =
-            new ReactiveProperty<double>(1);
+        double scale = 1;
+        public double Scale
+        {
+            get { return scale; }
+            set { SetProperty(ref scale, value); }
+        }
 
         #region Zoom
         double ScaleFactor(int delta)
@@ -24,7 +29,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
         public void Zoom(int delta)
         {
-            Scale.Value *= ScaleFactor(delta);
+            Scale *= ScaleFactor(delta);
         }
         #endregion
     }

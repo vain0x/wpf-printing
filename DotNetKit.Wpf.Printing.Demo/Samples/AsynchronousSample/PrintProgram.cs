@@ -44,8 +44,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             var printingController =
                 new PrintingController(
                     printQueueSelector,
-                    new MyPrinter().PrintAsync,
-                    context
+                    new MyPrinter().PrintAsync
                 );
             var mainWindow =
                 new PrintingControllerWindow() { DataContext = printingController };

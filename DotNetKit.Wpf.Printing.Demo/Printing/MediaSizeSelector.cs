@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Reactive.Bindings;
+using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public sealed class MediaSizeSelector
+        : BindableBase
     {
         #region Items
         sealed class MediaSizeListBuilder
@@ -17,7 +18,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             List<KeyValuePair<string, Size>> List { get; } =
                 new List<KeyValuePair<string, Size>>();
 
-            // NOTE: FixedPage は 96 dpi 固定。
+            // NOTE: FixedPage's DPI is always 96.
             const double dpi = 96.0;
 
             // Inch per millimeter.
@@ -64,7 +65,11 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         public IReadOnlyList<KeyValuePair<string, Size>> Items => items;
         #endregion
 
-        public ReactiveProperty<Size> SelectedSize { get; } =
-            new ReactiveProperty<Size>(items.First(item => item.Key == "A5").Value);
+        Size selectedSize = items.First(item => item.Key == "A5").Value;
+        public Size SelectedSize
+        {
+            get { return selectedSize; }
+            set { SetProperty(ref selectedSize, value); }
+        }
     }
 }

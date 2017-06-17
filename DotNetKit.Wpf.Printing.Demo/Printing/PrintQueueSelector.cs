@@ -5,15 +5,22 @@ using System.Printing;
 using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
-using Reactive.Bindings;
+using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public sealed class PrintQueueSelector
-        : IDisposable
+        : BindableBase
+        , IDisposable
     {
         public IReadOnlyList<KeyValuePair<string, PrintQueue>> Items { get; }
-        public ReactiveProperty<PrintQueue> SelectedPrintQueue { get; }
+
+        PrintQueue selectedPrintQueue;
+        public PrintQueue SelectedPrintQueue
+        {
+            get { return selectedPrintQueue; }
+            set { SetProperty(ref selectedPrintQueue, value); }
+        }
 
         readonly IDisposable disposable;
         public void Dispose()
@@ -29,7 +36,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             )
         {
             Items = items;
-            SelectedPrintQueue = new ReactiveProperty<PrintQueue>(defaultPrintQueue);
+            SelectedPrintQueue = defaultPrintQueue;
             this.disposable = disposable;
         }
     }

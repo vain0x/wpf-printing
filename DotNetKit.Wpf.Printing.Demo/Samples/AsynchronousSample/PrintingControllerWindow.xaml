@@ -24,7 +24,7 @@
                     Margin="6,3,6,3"
                     DataContext="{Binding PrintQueueSelector}"
                     ItemsSource="{Binding Items}"
-                    SelectedValue="{Binding SelectedPrintQueue.Value}"
+                    SelectedValue="{Binding SelectedPrintQueue}"
                     DisplayMemberPath="Key"
                     SelectedValuePath="Value"
                     />
@@ -37,7 +37,7 @@
         </GroupBox>
 
         <!-- Overlayer. -->
-        <Grid Visibility="{Binding IsPrinting.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Visibility="{Binding IsPrinting, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border
                 Opacity="0.5"
                 Background="Black"

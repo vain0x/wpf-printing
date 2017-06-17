@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using DotNetKit.Windows.Documents;
-using Reactive.Bindings;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
@@ -18,51 +19,57 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     }
 
     public class PrintPreviewer<TPrintable>
-        : IPrintPreviewer
+        : BindableBase
+        , IPrintPreviewer
     {
         readonly TPrintable printable;
         readonly IPaginator<TPrintable> paginator;
         readonly Printer printer;
 
-        static IReadOnlyList<PrintPreviewPage> emptyPages = new PrintPreviewPage[] { };
+        static readonly IReadOnlyList<PrintPreviewPage> emptyPages = new PrintPreviewPage[] { };
 
-        public ReactiveProperty<IReadOnlyList<PrintPreviewPage>> Pages { get; } =
-            new ReactiveProperty<IReadOnlyList<PrintPreviewPage>>(emptyPages);
+        IReadOnlyList<PrintPreviewPage> pages = emptyPages;
+        public IReadOnlyList<PrintPreviewPage> Pages
+        {
+            get { return pages; }
+            set { SetProperty(ref pages, value); }
+        }
 
         public MediaSizeSelector MediaSizeSelector { get; } =
             new MediaSizeSelector();
 
-        public ReactiveProperty<bool> IsLandscape { get; } =
-            new ReactiveProperty<bool>(false);
+        bool isLandscape;
+        public bool IsLandscape
+        {
+            get { return isLandscape; }
+            set { SetProperty(ref isLandscape, value); }
+        }
 
         public ScaleSelector ScaleSelector { get; } =
             new ScaleSelector();
 
         public PrintQueueSelector PrintQueueSelector { get; }
 
-        public ReactiveCommand PreviewCommand { get; } =
-            new ReactiveCommand();
+        public DelegateCommand PreviewCommand { get; }
 
-        public ReactiveCommand PrintCommand { get; } =
-            new ReactiveCommand();
+        public DelegateCommand PrintCommand { get; }
 
         Size PageSize
         {
             get
             {
-                var mediaSize = MediaSizeSelector.SelectedSize.Value;
+                var mediaSize = MediaSizeSelector.SelectedSize;
                 return
-                    IsLandscape.Value
+                    IsLandscape
                         ? new Size(mediaSize.Height, mediaSize.Width)
                         : mediaSize;
-
             }
         }
 
         public void UpdatePreview()
         {
             var pageSize = PageSize;
-            Pages.Value =
+            Pages =
                 paginator.Paginate(printable, PageSize)
                 .Cast<object>()
                 .Select(content => new PrintPreviewPage(content, pageSize))
@@ -71,7 +78,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
         public Task PrintAsync()
         {
-            var printQueue = PrintQueueSelector.SelectedPrintQueue.Value;
+            var printQueue = PrintQueueSelector.SelectedPrintQueue;
             return printer.PrintAsync(printable, paginator, PageSize, printQueue);
         }
 
@@ -93,8 +100,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             this.printer = printer;
             PrintQueueSelector = printQueueSelector;
 
-            PreviewCommand.Subscribe(_ => UpdatePreview());
-            PrintCommand.Subscribe(_ => PrintAsync());
+            PreviewCommand = new DelegateCommand(UpdatePreview);
+            PrintCommand = new DelegateCommand(() => PrintAsync());
         }
     }
 }
