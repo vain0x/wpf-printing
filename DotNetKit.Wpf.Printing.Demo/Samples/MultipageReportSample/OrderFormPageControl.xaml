@@ -7,8 +7,9 @@
     xmlns:local="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample"
     xmlns:printableDataGrid="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.Printing"
     mc:Ignorable="d" 
-    d:DesignWidth="300"
-    d:DesignHeight="300"
+    d:DesignWidth="793.7"
+    d:DesignHeight="1122.52"
+    d:DataContext="{x:Static local:OrderFormPage.DesignerInstance}"
     >
     <UserControl.Resources>
         <Style x:Key="DefaultCellStyle" TargetType="{x:Type printableDataGrid:PrintableDataGridCell}">
