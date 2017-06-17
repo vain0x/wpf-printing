@@ -77,7 +77,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
         public void Print()
         {
-            var printer = PrinterSelector.SelectedPrinter;
+            var printer = PrinterSelector.SelectedPrinterOrNull;
+            if (printer == null) return;
+
             printer.Print(printable, paginator, PageSize);
         }
 

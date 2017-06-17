@@ -69,7 +69,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                         var pageSize = new Size(793.7, 1122.52);
                         var paginator = DataGridPrintablePaginator<Order>.Instance;
 
-                        var printer = PrinterSelector.SelectedPrinter;
+                        var printer = PrinterSelector.SelectedPrinterOrNull;
+                        if (printer == null) return;
+
                         var cts = new CancellationTokenSource();
                         CurrentCts = cts;
                         try

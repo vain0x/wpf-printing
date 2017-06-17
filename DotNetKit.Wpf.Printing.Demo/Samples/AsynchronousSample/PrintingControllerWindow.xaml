@@ -24,7 +24,7 @@
                     Margin="6,3,6,3"
                     DataContext="{Binding PrinterSelector}"
                     ItemsSource="{Binding Items}"
-                    SelectedValue="{Binding SelectedPrinter}"
+                    SelectedValue="{Binding SelectedPrinterOrNull}"
                     DisplayMemberPath="Name"
                     />
                 <Button

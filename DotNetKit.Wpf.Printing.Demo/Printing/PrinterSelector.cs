@@ -18,11 +18,11 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     {
         public IReadOnlyList<IPrinter> Items { get; }
 
-        IPrinter selectedPrinter;
-        public IPrinter SelectedPrinter
+        IPrinter selectedPrinterOrNull;
+        public IPrinter SelectedPrinterOrNull
         {
-            get { return selectedPrinter; }
-            set { SetProperty(ref selectedPrinter, value); }
+            get { return selectedPrinterOrNull; }
+            set { SetProperty(ref selectedPrinterOrNull, value); }
         }
 
         readonly LocalPrintServer localPrintServer;
@@ -36,7 +36,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
         PrinterSelector(
             IReadOnlyList<IPrinter> items,
-            IPrinter defaultPrinter,
+            IPrinter defaultPrinterOrNull,
             LocalPrintServer localPrintServer,
             PrintQueueCollection printQueueCollection
         )
@@ -45,36 +45,30 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             this.printQueueCollection = printQueueCollection;
 
             Items = items;
-            SelectedPrinter = defaultPrinter;
+            SelectedPrinterOrNull = defaultPrinterOrNull;
         }
 
         public static PrinterSelector FromLocalServer()
         {
             var server = new LocalPrintServer();
             var queues = server.GetPrintQueues();
+            var items = queues.Select(q => new Printer(q)).ToArray();
 
-            try
+            var defaultPrintQueue = server.DefaultPrintQueue;
+
+            var defaultPrinter = default(IPrinter);
+            if (defaultPrintQueue == null)
             {
-                var items = queues.Select(q => new Printer(q)).ToArray();
-
-                if (items.Length == 0)
-                {
-                    throw new InvalidOperationException("No print queue available.");
-                }
-
-                var defaultPrinter = new Printer(server.DefaultPrintQueue);
+                defaultPrinter = items.FirstOrDefault();
+            }
+            else
+            { 
                 defaultPrinter =
-                    items.FirstOrDefault(p => p.Name == defaultPrinter.Name)
-                    ?? items[0];
+                    items.FirstOrDefault(p => p.Name == defaultPrintQueue.Name)
+                    ?? items.FirstOrDefault();
+            }
 
-                return new PrinterSelector(items, defaultPrinter, server, queues);
-            }
-            catch (Exception)
-            {
-                server.Dispose();
-                queues.Dispose();
-                throw;
-            }
+            return new PrinterSelector(items, defaultPrinter, server, queues);
         }
     }
 }
