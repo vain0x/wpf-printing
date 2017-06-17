@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Disposables;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Documents.Serialization;
 using System.Windows.Xps;
+using DotNetKit.Misc.Disposables;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing.Xps
 {
@@ -67,8 +67,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing.Xps
             @this.WritingCancelled += onCancelled;
             var registration = cancellationToken.Register(@this.CancelAsync);
 
-            subscription.Disposable =
-                Disposable.Create(() =>
+            subscription.Content =
+                new AnonymousDisposable(() =>
                 {
                     @this.WritingCompleted -= onCompleted;
                     @this.WritingCancelled -= onCancelled;
