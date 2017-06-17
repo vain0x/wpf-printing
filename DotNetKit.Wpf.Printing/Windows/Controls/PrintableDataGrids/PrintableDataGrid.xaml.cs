@@ -28,12 +28,6 @@ namespace DotNetKit.Windows.Controls
         readonly Grid grid;
         readonly StackPanel stackPanel;
 
-        #region IPrintableDataGrid
-        Grid IPrintableDataGrid.Grid => grid;
-        int IPrintableDataGrid.FrozenRowCount => 1;
-        double IPrintableDataGrid.ActualHeight => ActualHeight;
-        #endregion
-
         readonly ObservableCollection<PrintableDataGridColumn> columns =
             new ObservableCollection<PrintableDataGridColumn>();
 
@@ -231,6 +225,18 @@ namespace DotNetKit.Windows.Controls
 
             Reset();
         }
+
+        #region IPrintableDataGrid
+        const int HeaderRowCount = 1;
+
+        double IPrintableDataGrid.ItemMeasure(int index)
+        {
+            return grid.RowDefinitions[HeaderRowCount + index].ActualHeight;
+        }
+
+        double IPrintableDataGrid.ActualMeasure =>
+            ActualHeight - grid.RowDefinitions[0].ActualHeight;
+        #endregion
 
         public PrintableDataGrid()
         {
