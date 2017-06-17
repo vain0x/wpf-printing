@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
-    public struct PrintPreviewPage
+    public sealed class PrintPreviewPage
     {
         public object Content { get; }
         public Size PageSize { get; }

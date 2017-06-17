@@ -49,5 +49,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
                     pageCount: 1
                 );
         }
+
+        public static OrderFormPage DesignerInstance { get; } =
+            new OrderFormPage();
     }
 }

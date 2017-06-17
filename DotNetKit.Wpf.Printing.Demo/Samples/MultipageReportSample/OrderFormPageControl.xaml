@@ -7,8 +7,9 @@
     xmlns:local="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample"
     xmlns:printableDataGrid="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.Printing"
     mc:Ignorable="d" 
-    d:DesignWidth="300"
-    d:DesignHeight="300"
+    d:DesignWidth="793.7"
+    d:DesignHeight="1122.52"
+    d:DataContext="{x:Static local:OrderFormPage.DesignerInstance}"
     >
     <UserControl.Resources>
         <Style x:Key="DefaultCellStyle" TargetType="{x:Type printableDataGrid:PrintableDataGridCell}">
@@ -92,19 +93,19 @@
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Quantity"
                     Width="80"
-                    CellBinding="{Binding Count, StringFormat=N0}"
+                    CellBinding="{Binding Count}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Price"
                     Width="120"
-                    CellBinding="{Binding UnitPrice, StringFormat=N0}"
+                    CellBinding="{Binding UnitPrice}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Total"
                     Width="120"
-                    CellBinding="{Binding TotalPrice, StringFormat=N0}"
+                    CellBinding="{Binding TotalPrice}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn

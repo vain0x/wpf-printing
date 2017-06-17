@@ -22,11 +22,10 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox
                             Margin="6,3,6,3"
-                            DataContext="{Binding PrintQueueSelector}"
+                            DataContext="{Binding PrinterSelector}"
                             ItemsSource="{Binding Items}"
-                            SelectedValue="{Binding SelectedPrintQueue}"
-                            DisplayMemberPath="Key"
-                            SelectedValuePath="Value"
+                            SelectedValue="{Binding SelectedPrinterOrNull}"
+                            DisplayMemberPath="Name"
                             />
 
                         <ComboBox
@@ -64,7 +63,6 @@
             </StackPanel>
         </Grid>
 
-        
         <Grid>
             <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Auto" >
                 <ItemsControl
