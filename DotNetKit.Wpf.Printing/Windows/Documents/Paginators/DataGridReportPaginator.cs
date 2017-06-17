@@ -56,21 +56,14 @@ namespace DotNetKit.Windows.Documents
 
             int CountVisibleRows(IPrintableDataGrid dataGrid)
             {
-                var grid = dataGrid.Grid;
-                var frozenRowCount = dataGrid.FrozenRowCount;
-                var acutalHeight = dataGrid.ActualHeight;
+                var actualMeasure = dataGrid.ActualMeasure;
 
-                var totalRowHeight = 0.0;
-
-                totalRowHeight +=
-                    grid.RowDefinitions.Take(frozenRowCount).Sum(r => r.ActualHeight);
-
+                var totalMeasure = 0.0;
                 var count = 0;
                 while (index + count < allItems.Length)
                 {
-                    var rowDefinition = grid.RowDefinitions[frozenRowCount + count];
-                    totalRowHeight += rowDefinition.ActualHeight;
-                    if (totalRowHeight > acutalHeight) break;
+                    totalMeasure += dataGrid.ItemMeasure(count);
+                    if (totalMeasure > actualMeasure) break;
 
                     count++;
                 }
