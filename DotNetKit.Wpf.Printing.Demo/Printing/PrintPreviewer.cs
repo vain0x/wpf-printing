@@ -24,7 +24,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     {
         readonly TPrintable printable;
         readonly IPaginator<TPrintable> paginator;
-        readonly Printer printer;
+        readonly IPrinter printer;
 
         static readonly IReadOnlyList<PrintPreviewPage> emptyPages = new PrintPreviewPage[] { };
 
@@ -91,7 +91,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             PrintPreviewer(
                 TPrintable printable,
                 IPaginator<TPrintable> paginator,
-                Printer printer,
+                IPrinter printer,
                 PrintQueueSelector printQueueSelector
             )
         {

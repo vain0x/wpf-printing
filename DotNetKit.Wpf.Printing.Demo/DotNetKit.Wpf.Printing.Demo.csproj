@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Printing\IPrinter.cs" />
     <Compile Include="Printing\MediaSizeSelector.cs" />
     <Compile Include="Printing\DoublePercentConverter.cs" />
     <Compile Include="Printing\PrintPreviewerControl.xaml.cs">

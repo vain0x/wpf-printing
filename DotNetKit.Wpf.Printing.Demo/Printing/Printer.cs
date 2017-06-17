@@ -13,7 +13,9 @@ using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
-    public class Printer
+    public sealed class Printer
+        : IPrinter
+        , IAsyncPrinter
     {
         sealed class PrintFunction<TPrintable>
         {
