@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Xps;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
 
@@ -37,11 +38,24 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                 return paginator.ToFixedDocument(printable, pageSize);
             }
 
+            XpsDocumentWriter Writer()
+            {
+                return PrintQueue.CreateXpsDocumentWriter(printQueue);
+            }
+
+            public void Print()
+            {
+                Setup();
+                var document = Document();
+                var writer = Writer();
+                writer.Write(document);
+            }
+
             public Task PrintAsync()
             {
                 Setup();
                 var document = Document();
-                var writer = PrintQueue.CreateXpsDocumentWriter(printQueue);
+                var writer = Writer();
                 return writer.WriteAsyncAsTask(document, cancellationToken);
             }
 
@@ -65,6 +79,23 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             }
         }
 
+        public void
+            Print<P>(
+                P printable,
+                IPaginator<P> paginator,
+                Size pageSize,
+                PrintQueue printQueue
+            )
+        {
+            new PrintFunction<P>(
+                printable,
+                paginator,
+                pageSize,
+                printQueue,
+                CancellationToken.None
+            ).Print();
+        }
+
         public Task
             PrintAsync<P>(
                 P printable,
@@ -75,8 +106,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             )
         {
             return
-                new PrintFunction<P>(printable, paginator, pageSize, printQueue, cancellationToken)
-                .PrintAsync();
+                new PrintFunction<P>(
+                    printable,
+                    paginator,
+                    pageSize,
+                    printQueue,
+                    cancellationToken
+                ).PrintAsync();
         }
     }
 }
