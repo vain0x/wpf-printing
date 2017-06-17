@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
-using System.Reactive;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,8 +40,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             var printingController =
                 new PrintingController(
                     printQueueSelector,
-                    new MyPrinter().PrintAsync,
-                    context
+                    new MyPrinter().PrintAsync
                 );
             var mainWindow =
                 new PrintingControllerWindow() { DataContext = printingController };

@@ -2,35 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
-using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
-using Reactive.Bindings;
+using DotNetKit.Misc.Disposables;
+using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public sealed class PrintQueueSelector
-        : IDisposable
+        : BindableBase
+        , IDisposable
     {
         public IReadOnlyList<KeyValuePair<string, PrintQueue>> Items { get; }
-        public ReactiveProperty<PrintQueue> SelectedPrintQueue { get; }
 
-        readonly IDisposable disposable;
+        PrintQueue selectedPrintQueue;
+        public PrintQueue SelectedPrintQueue
+        {
+            get { return selectedPrintQueue; }
+            set { SetProperty(ref selectedPrintQueue, value); }
+        }
+
+        readonly LocalPrintServer localPrintServer;
+        readonly PrintQueueCollection printQueueCollection;
+
         public void Dispose()
         {
-            disposable.Dispose();
+            localPrintServer.Dispose();
+            printQueueCollection.Dispose();
         }
 
         public
             PrintQueueSelector(
                 IReadOnlyList<KeyValuePair<string, PrintQueue>> items,
                 PrintQueue defaultPrintQueue,
-                IDisposable disposable
+                LocalPrintServer localPrintServer,
+                PrintQueueCollection printQueueCollection
             )
         {
+            this.localPrintServer = localPrintServer;
+            this.printQueueCollection = printQueueCollection;
+
             Items = items;
-            SelectedPrintQueue = new ReactiveProperty<PrintQueue>(defaultPrintQueue);
-            this.disposable = disposable;
+            SelectedPrintQueue = defaultPrintQueue;
         }
     }
 
@@ -40,7 +53,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         {
             var server = new LocalPrintServer();
             var queues = server.GetPrintQueues();
-            var disposable = StableCompositeDisposable.Create(server, queues);
 
             try
             {
@@ -61,11 +73,12 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                     .FirstOrDefault(kv => kv.FullName == defaultPrintQueue.FullName)
                     ?? items[0].Value;
 
-                return new PrintQueueSelector(items, defaultPrintQueue, disposable);
+                return new PrintQueueSelector(items, defaultPrintQueue, server, queues);
             }
             catch (Exception)
             {
-                disposable.Dispose();
+                server.Dispose();
+                queues.Dispose();
                 throw;
             }
         }

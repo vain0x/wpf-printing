@@ -24,7 +24,7 @@
                             Margin="6,3,6,3"
                             DataContext="{Binding PrintQueueSelector}"
                             ItemsSource="{Binding Items}"
-                            SelectedValue="{Binding SelectedPrintQueue.Value}"
+                            SelectedValue="{Binding SelectedPrintQueue}"
                             DisplayMemberPath="Key"
                             SelectedValuePath="Value"
                             />
@@ -33,7 +33,7 @@
                             Margin="6,3,6,3"
                             DataContext="{Binding MediaSizeSelector}"
                             ItemsSource="{Binding Items}"
-                            SelectedValue="{Binding SelectedSize.Value}"
+                            SelectedValue="{Binding SelectedSize}"
                             DisplayMemberPath="Key"
                             SelectedValuePath="Value"
                             />
@@ -41,7 +41,7 @@
                         <CheckBox
                             Margin="6,3,6,3"
                             Content="Landscape"
-                            IsChecked="{Binding IsLandscape.Value}"
+                            IsChecked="{Binding IsLandscape}"
                             />
                     </StackPanel>
                 </StackPanel>
@@ -69,12 +69,12 @@
             <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Auto" >
                 <ItemsControl
                     IsTabStop="False"
-                    ItemsSource="{Binding Pages.Value}"
+                    ItemsSource="{Binding Pages}"
                     >
                     <ItemsControl.LayoutTransform>
                         <ScaleTransform
-                            ScaleX="{Binding ScaleSelector.Scale.Value}"
-                            ScaleY="{Binding ScaleSelector.Scale.Value}"
+                            ScaleX="{Binding ScaleSelector.Scale}"
+                            ScaleY="{Binding ScaleSelector.Scale}"
                             />
                     </ItemsControl.LayoutTransform>
 
@@ -109,7 +109,7 @@
                     <TextBlock DockPanel.Dock="Right" Text="%" />
 
                     <TextBox
-                        Text="{Binding ScaleSelector.Scale.Value, StringFormat=0.##, Converter={x:Static local:DoublePercentConverter.Instance}}"
+                        Text="{Binding ScaleSelector.Scale, StringFormat=0.##, Converter={x:Static local:DoublePercentConverter.Instance}}"
                         />
                 </DockPanel>
             </Border>
