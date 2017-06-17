@@ -93,19 +93,19 @@
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Quantity"
                     Width="80"
-                    CellBinding="{Binding Count, StringFormat=N0}"
+                    CellBinding="{Binding Count}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Price"
                     Width="120"
-                    CellBinding="{Binding UnitPrice, StringFormat=N0}"
+                    CellBinding="{Binding UnitPrice}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
                     Header="Total"
                     Width="120"
-                    CellBinding="{Binding TotalPrice, StringFormat=N0}"
+                    CellBinding="{Binding TotalPrice}"
                     CellStyle="{StaticResource NumberCellStyle}"
                     />
                 <printableDataGrid:PrintableDataGridColumn
