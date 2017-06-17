@@ -7,7 +7,7 @@ using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
-    public class ScaleSelector
+    public sealed class ScaleSelector
         : BindableBase
     {
         double scale = 1;
