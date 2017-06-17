@@ -67,12 +67,6 @@ namespace DotNetKit.Windows.Documents
 
                     count++;
                 }
-
-                if (count == 0)
-                {
-                    throw new InvalidOperationException("Page size is too small to show contents of the data grid.");
-                }
-
                 return count;
             }
 
@@ -95,6 +89,7 @@ namespace DotNetKit.Windows.Documents
                     var presenter = PagePresenterFromRestItems();
                     var dataGrid = DataGridFromPagePresenter(presenter);
                     var count = CountVisibleRows(dataGrid);
+                    if (count == 0) throw new InfinitePagePaginationException();
 
                     chunks.Add(new ArraySegment<TItem>(allItems, index, count));
                     index += count;
