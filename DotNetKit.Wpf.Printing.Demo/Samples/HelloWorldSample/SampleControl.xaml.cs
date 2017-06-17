@@ -31,7 +31,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
                     new HelloWorldPage(),
                     SingletonPaginator<HelloWorldPage>.Instance,
                     new Printer(),
-                    PrintQueueSelectorModule.FromLocalServer()
+                    PrintQueueSelector.FromLocalServer()
                 );
             DataContext = previewer;
 

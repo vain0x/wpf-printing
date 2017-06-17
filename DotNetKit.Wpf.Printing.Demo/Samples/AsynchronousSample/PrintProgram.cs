@@ -36,7 +36,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             var context = new DispatcherSynchronizationContext(dispatcher);
             SynchronizationContext.SetSynchronizationContext(context);
 
-            var printQueueSelector = PrintQueueSelectorModule.FromLocalServer();
+            var printQueueSelector = PrintQueueSelector.FromLocalServer();
             var printingController =
                 new PrintingController(
                     printQueueSelector,

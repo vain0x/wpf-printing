@@ -9,6 +9,9 @@ using Prism.Mvvm;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
+    /// <summary>
+    /// Represents a selector to choose a printer.
+    /// </summary>
     public sealed class PrintQueueSelector
         : BindableBase
         , IDisposable
@@ -31,13 +34,12 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             printQueueCollection.Dispose();
         }
 
-        public
-            PrintQueueSelector(
-                IReadOnlyList<KeyValuePair<string, PrintQueue>> items,
-                PrintQueue defaultPrintQueue,
-                LocalPrintServer localPrintServer,
-                PrintQueueCollection printQueueCollection
-            )
+        PrintQueueSelector(
+            IReadOnlyList<KeyValuePair<string, PrintQueue>> items,
+            PrintQueue defaultPrintQueue,
+            LocalPrintServer localPrintServer,
+            PrintQueueCollection printQueueCollection
+        )
         {
             this.localPrintServer = localPrintServer;
             this.printQueueCollection = printQueueCollection;
@@ -45,10 +47,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             Items = items;
             SelectedPrintQueue = defaultPrintQueue;
         }
-    }
 
-    public static class PrintQueueSelectorModule
-    {
         public static PrintQueueSelector FromLocalServer()
         {
             var server = new LocalPrintServer();
