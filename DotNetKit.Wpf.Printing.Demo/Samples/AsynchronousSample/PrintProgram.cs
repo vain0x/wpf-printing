@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Threading;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities;
 using DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample;
 
 namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
@@ -22,7 +23,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             SynchronizationContext.SetSynchronizationContext(context);
 
             var printerSelector =
-                PrinterSelector<IPrinter>.FromLocalServer<IPrinter>(q => new Printer(q));
+                PrinterSelector<IAsyncPrinter>.FromLocalServer<IAsyncPrinter>(q => new Printer(q));
             var printingController =
                 new PrintingController(printerSelector);
             var mainWindow =

@@ -11,11 +11,13 @@ using System.Windows.Documents;
 using System.Windows.Xps;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
+using DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public sealed class Printer
         : IPrinter
+        , IAsyncPrinter
     {
         readonly PrintQueue printQueue;
 

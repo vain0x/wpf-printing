@@ -2,23 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using DotNetKit.Windows.Documents;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing
+namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities
 {
-    public interface IPrinter
+    public interface IAsyncPrinter
     {
         string Name { get; }
 
-        void
-            Print(
+        Task
+            PrintAsync(
                 IEnumerable pages,
-                Size pageSize
+                Size pageSize,
+                CancellationToken cancellationToken = default(CancellationToken)
             );
     }
 }

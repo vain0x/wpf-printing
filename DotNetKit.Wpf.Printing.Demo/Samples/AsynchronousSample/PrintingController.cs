@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities;
 using DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -17,7 +18,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
     public sealed class PrintingController
         : BindableBase
     {
-        public PrinterSelector<IPrinter> PrinterSelector { get; }
+        public PrinterSelector<IAsyncPrinter> PrinterSelector { get; }
 
         public DelegateCommand PrintCommand { get; }
 
@@ -43,7 +44,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             }
         }
 
-        public PrintingController(PrinterSelector<IPrinter> printerSelector)
+        public PrintingController(PrinterSelector<IAsyncPrinter> printerSelector)
         {
             PrinterSelector = printerSelector;
 
