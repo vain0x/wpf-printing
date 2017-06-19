@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
@@ -23,7 +24,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         , IPrintPreviewer
     {
         readonly TPrintable printable;
-        readonly IPaginator<TPrintable> paginator;
+        readonly Func<TPrintable, Size, IEnumerable> paginate;
 
         static readonly IReadOnlyList<PrintPreviewPage> emptyPages = new PrintPreviewPage[] { };
 
@@ -69,7 +70,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         {
             var pageSize = PageSize;
             Pages =
-                paginator.Paginate(printable, PageSize)
+                paginate(printable, PageSize)
                 .Cast<object>()
                 .Select(content => new PrintPreviewPage(content, pageSize))
                 .ToArray();
@@ -80,7 +81,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             var printer = PrinterSelector.SelectedPrinterOrNull;
             if (printer == null) return;
 
-            printer.Print(printable, paginator, PageSize);
+            var pageSize = PageSize;
+            printer.Print(paginate(printable, pageSize), pageSize);
         }
 
         public void Dispose()
@@ -91,12 +93,12 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         public
             PrintPreviewer(
                 TPrintable printable,
-                IPaginator<TPrintable> paginator,
+                Func<TPrintable, Size, IEnumerable> paginate,
                 PrinterSelector printerSelector
             )
         {
             this.printable = printable;
-            this.paginator = paginator;
+            this.paginate = paginate;
             PrinterSelector = printerSelector;
 
             PreviewCommand = new DelegateCommand(UpdatePreview);

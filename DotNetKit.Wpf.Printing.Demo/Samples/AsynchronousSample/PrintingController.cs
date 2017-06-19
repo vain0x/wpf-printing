@@ -76,7 +76,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                         CurrentCts = cts;
                         try
                         {
-                            await printer.PrintAsync(printable, paginator, pageSize, cts.Token);
+                            var pages = paginator.Paginate(printable, pageSize);
+                            await printer.PrintAsync(pages, pageSize, cts.Token);
                         }
                         finally
                         {

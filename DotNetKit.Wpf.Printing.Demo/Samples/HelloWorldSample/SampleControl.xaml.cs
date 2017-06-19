@@ -29,7 +29,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
             var previewer =
                 new PrintPreviewer<HelloWorldPage>(
                     new HelloWorldPage(),
-                    SingletonPaginator<HelloWorldPage>.Instance,
+                    (page, _) => new[] { page },
                     PrinterSelector.FromLocalServer()
                 );
             DataContext = previewer;

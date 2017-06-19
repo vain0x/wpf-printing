@@ -48,7 +48,6 @@
     </Compile>
     <Compile Include="Windows\Documents\Paginators\InfinitePaginationException.cs" />
     <Compile Include="Windows\Documents\FixedDocumentCreator.cs" />
-    <Compile Include="Windows\Documents\Paginators\IPaginator.cs" />
     <Compile Include="Windows\Controls\PrintableDataGrids\IPrintableDataGrid.cs" />
     <Compile Include="Windows\Controls\PrintableDataGrids\IPrintableDataGridContainer.cs" />
     <Compile Include="Windows\Documents\Paginators\DataGridPrintablePaginator.cs" />
@@ -59,7 +58,6 @@
     <Compile Include="Windows\Controls\ScaleControl.xaml.cs">
       <DependentUpon>ScaleControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Documents\Paginators\SingletonPaginator.cs" />
     <Compile Include="Windows\Documents\Printables\IDataGridPrintable.cs" />
     <Compile Include="Windows\Media\VisualTreeHelperExtension.cs" />
   </ItemGroup>

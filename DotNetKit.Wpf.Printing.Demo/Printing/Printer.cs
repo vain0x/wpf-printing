@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
@@ -23,10 +24,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             get { return printQueue.Name; }
         }
 
-        sealed class PrintFunction<TPrintable>
+        sealed class PrintFunction
         {
-            readonly TPrintable printable;
-            readonly IPaginator<TPrintable> paginator;
+            readonly IEnumerable pages;
             readonly Size pageSize;
             readonly PrintQueue printQueue;
             readonly CancellationToken cancellationToken;
@@ -43,7 +43,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
             FixedDocument Document()
             {
-                var pages = paginator.Paginate(printable, pageSize);
                 return new FixedDocumentCreator().FromDataContexts(pages, pageSize);
             }
 
@@ -70,15 +69,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
             public
                 PrintFunction(
-                    TPrintable printable,
-                    IPaginator<TPrintable> paginator,
+                    IEnumerable pages,
                     Size pageSize,
                     PrintQueue printQueue,
                     CancellationToken cancellationToken
                 )
             {
-                this.printable = printable;
-                this.paginator = paginator;
+                this.pages = pages;
                 this.pageSize = pageSize;
                 this.printQueue = printQueue;
                 this.cancellationToken = cancellationToken;
@@ -89,15 +86,13 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         }
 
         public void
-            Print<P>(
-                P printable,
-                IPaginator<P> paginator,
+            Print(
+                IEnumerable pages,
                 Size pageSize
             )
         {
-            new PrintFunction<P>(
-                printable,
-                paginator,
+            new PrintFunction(
+                pages,
                 pageSize,
                 printQueue,
                 CancellationToken.None
@@ -105,17 +100,15 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         }
 
         public Task
-            PrintAsync<P>(
-                P printable,
-                IPaginator<P> paginator,
+            PrintAsync(
+                IEnumerable pages,
                 Size pageSize,
                 CancellationToken cancellationToken = default(CancellationToken)
             )
         {
             return
-                new PrintFunction<P>(
-                    printable,
-                    paginator,
+                new PrintFunction(
+                    pages,
                     pageSize,
                     printQueue,
                     cancellationToken

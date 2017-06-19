@@ -14,7 +14,6 @@ using DotNetKit.Windows.Media;
 namespace DotNetKit.Windows.Documents
 {
     public sealed class DataGridPrintablePaginator<TItem>
-        : IPaginator<IDataGridPrintable<TItem>>
     {
         #region Paginate
         sealed class PaginateFunction
@@ -118,7 +117,7 @@ namespace DotNetKit.Windows.Documents
         {
         }
 
-        public static IPaginator<IDataGridPrintable<TItem>> Instance { get; } =
+        public static DataGridPrintablePaginator<TItem> Instance { get; } =
             new DataGridPrintablePaginator<TItem>();
     }
 }
