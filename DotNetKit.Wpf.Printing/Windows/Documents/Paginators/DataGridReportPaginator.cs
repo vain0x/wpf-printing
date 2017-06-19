@@ -89,7 +89,7 @@ namespace DotNetKit.Windows.Documents
                     var presenter = PagePresenterFromRestItems();
                     var dataGrid = DataGridFromPagePresenter(presenter);
                     var count = CountVisibleRows(dataGrid);
-                    if (count == 0) throw new InfinitePagePaginationException();
+                    if (count == 0) throw new InfinitePaginationException();
 
                     chunks.Add(new ArraySegment<TItem>(allItems, index, count));
                     index += count;

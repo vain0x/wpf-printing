@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotNetKit.Windows.Documents
 {
-    public class InfinitePagePaginationException
+    public class InfinitePaginationException
         : InvalidOperationException
     {
         public override string Message =>

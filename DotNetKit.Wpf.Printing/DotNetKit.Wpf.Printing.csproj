@@ -46,7 +46,7 @@
     <Compile Include="Windows\Controls\PrintableDataGrids\PrintableDataGridCell.xaml.cs">
       <DependentUpon>PrintableDataGridCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Documents\Paginators\InfinitePagePaginationException.cs" />
+    <Compile Include="Windows\Documents\Paginators\InfinitePaginationException.cs" />
     <Compile Include="Windows\Documents\FixedDocumentCreator.cs" />
     <Compile Include="Windows\Documents\Printables\ISinglePagePrintable.cs" />
     <Compile Include="Windows\Documents\Paginators\IPaginator.cs" />
