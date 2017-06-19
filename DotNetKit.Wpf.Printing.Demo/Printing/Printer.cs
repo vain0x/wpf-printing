@@ -43,7 +43,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
 
             FixedDocument Document()
             {
-                return paginator.ToFixedDocument(printable, pageSize);
+                var pages = paginator.Paginate(printable, pageSize);
+                return new FixedDocumentCreator().FromDataContexts(pages, pageSize);
             }
 
             XpsDocumentWriter Writer()
