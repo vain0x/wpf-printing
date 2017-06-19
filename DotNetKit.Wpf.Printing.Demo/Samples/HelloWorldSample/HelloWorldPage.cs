@@ -8,7 +8,6 @@ using DotNetKit.Windows.Documents;
 namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
 {
     public class HelloWorldPage
-        : ISinglePagePrintable
     {
         public string Title => "HELLO WORLD REPORT";
         public DateTime IssueDate => new DateTime(2007, 8, 31);
