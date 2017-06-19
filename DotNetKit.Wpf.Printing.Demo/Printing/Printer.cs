@@ -23,67 +23,22 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             get { return printQueue.Name; }
         }
 
-        sealed class PrintFunction
+        public void Print(IEnumerable pages, Size pageSize)
         {
-            readonly IEnumerable pages;
-            readonly Size pageSize;
-            readonly PrintQueue printQueue;
+            var isLandscape = pageSize.Width > pageSize.Height;
+            var mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
 
-            readonly bool isLandscape;
-            readonly Size mediaSize;
+            // Set up print ticket.
+            var ticket = printQueue.DefaultPrintTicket;
+            ticket.PageMediaSize = new PageMediaSize(mediaSize.Width, mediaSize.Height);
+            ticket.PageOrientation = PageOrientation.Portrait;
 
-            void Setup()
-            { 
-                var ticket = printQueue.DefaultPrintTicket;
-                ticket.PageMediaSize = new PageMediaSize(mediaSize.Width, mediaSize.Height);
-                ticket.PageOrientation = PageOrientation.Portrait;
-            }
+            // Generate FixedDocument to be printed from data contexts.
+            var document = new FixedDocumentCreator().FromDataContexts(pages, pageSize);
 
-            FixedDocument Document()
-            {
-                return new FixedDocumentCreator().FromDataContexts(pages, pageSize);
-            }
-
-            XpsDocumentWriter Writer()
-            {
-                return PrintQueue.CreateXpsDocumentWriter(printQueue);
-            }
-
-            public void Print()
-            {
-                Setup();
-                var document = Document();
-                var writer = Writer();
-                writer.Write(document);
-            }
-
-            public
-                PrintFunction(
-                    IEnumerable pages,
-                    Size pageSize,
-                    PrintQueue printQueue
-                )
-            {
-                this.pages = pages;
-                this.pageSize = pageSize;
-                this.printQueue = printQueue;
-
-                isLandscape = pageSize.Width > pageSize.Height;
-                mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
-            }
-        }
-
-        public void
-            Print(
-                IEnumerable pages,
-                Size pageSize
-            )
-        {
-            new PrintFunction(
-                pages,
-                pageSize,
-                printQueue
-            ).Print();
+            // Print.
+            var writer = PrintQueue.CreateXpsDocumentWriter(printQueue);
+            writer.Write(document);
         }
 
         public Printer(PrintQueue printQueue)

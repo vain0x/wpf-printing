@@ -15,10 +15,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     {
         string Name { get; }
 
-        void
-            Print(
-                IEnumerable pages,
-                Size pageSize
-            );
+        void Print(IEnumerable pages, Size pageSize);
     }
 }
