@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using DotNetKit.Windows.Controls;
 using DotNetKit.Windows.Documents;
-using DotNetKit.Windows.Media;
 
 namespace DotNetKit.Windows.Documents
 {

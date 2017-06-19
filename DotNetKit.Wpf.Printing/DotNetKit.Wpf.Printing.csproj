@@ -59,7 +59,6 @@
       <DependentUpon>ScaleControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Documents\DataGridPrintablePaginators\IDataGridPrintable.cs" />
-    <Compile Include="Windows\Media\VisualTreeHelperExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Windows\Controls\PrintableDataGrids\PrintableDataGrid.xaml">
