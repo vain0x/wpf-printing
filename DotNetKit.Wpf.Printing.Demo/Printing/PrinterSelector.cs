@@ -25,24 +25,20 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             set { SetProperty(ref selectedPrinterOrNull, value); }
         }
 
-        readonly LocalPrintServer localPrintServer;
-        readonly PrintQueueCollection printQueueCollection;
+        readonly IDisposable disposable;
 
         public void Dispose()
         {
-            localPrintServer.Dispose();
-            printQueueCollection.Dispose();
+            disposable.Dispose();
         }
 
         PrinterSelector(
             IReadOnlyList<IPrinter> items,
             IPrinter defaultPrinterOrNull,
-            LocalPrintServer localPrintServer,
-            PrintQueueCollection printQueueCollection
+            IDisposable disposable
         )
         {
-            this.localPrintServer = localPrintServer;
-            this.printQueueCollection = printQueueCollection;
+            this.disposable = disposable;
 
             Items = items;
             SelectedPrinterOrNull = defaultPrinterOrNull;
@@ -52,6 +48,14 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         {
             var server = new LocalPrintServer();
             var queues = server.GetPrintQueues();
+
+            var disposable =
+                new AnonymousDisposable(() =>
+                {
+                    server.Dispose();
+                    queues.Dispose();
+                });
+
             var items = queues.Select(q => new Printer(q)).ToArray();
 
             var defaultPrintQueue = server.DefaultPrintQueue;
@@ -68,7 +72,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                     ?? items.FirstOrDefault();
             }
 
-            return new PrinterSelector(items, defaultPrinter, server, queues);
+            return new PrinterSelector(items, defaultPrinter, disposable);
         }
     }
 }
