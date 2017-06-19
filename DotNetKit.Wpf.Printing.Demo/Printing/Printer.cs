@@ -11,13 +11,11 @@ using System.Windows.Documents;
 using System.Windows.Xps;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
-using DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {
     public sealed class Printer
         : IPrinter
-        , IAsyncPrinter
     {
         readonly PrintQueue printQueue;
 
@@ -31,7 +29,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             readonly IEnumerable pages;
             readonly Size pageSize;
             readonly PrintQueue printQueue;
-            readonly CancellationToken cancellationToken;
 
             readonly bool isLandscape;
             readonly Size mediaSize;
@@ -61,26 +58,16 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
                 writer.Write(document);
             }
 
-            public Task PrintAsync()
-            {
-                Setup();
-                var document = Document();
-                var writer = Writer();
-                return writer.WriteAsyncAsTask(document, cancellationToken);
-            }
-
             public
                 PrintFunction(
                     IEnumerable pages,
                     Size pageSize,
-                    PrintQueue printQueue,
-                    CancellationToken cancellationToken
+                    PrintQueue printQueue
                 )
             {
                 this.pages = pages;
                 this.pageSize = pageSize;
                 this.printQueue = printQueue;
-                this.cancellationToken = cancellationToken;
 
                 isLandscape = pageSize.Width > pageSize.Height;
                 mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
@@ -96,25 +83,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             new PrintFunction(
                 pages,
                 pageSize,
-                printQueue,
-                CancellationToken.None
+                printQueue
             ).Print();
-        }
-
-        public Task
-            PrintAsync(
-                IEnumerable pages,
-                Size pageSize,
-                CancellationToken cancellationToken = default(CancellationToken)
-            )
-        {
-            return
-                new PrintFunction(
-                    pages,
-                    pageSize,
-                    printQueue,
-                    cancellationToken
-                ).PrintAsync();
         }
 
         public Printer(PrintQueue printQueue)

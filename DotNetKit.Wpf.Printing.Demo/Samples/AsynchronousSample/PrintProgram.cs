@@ -23,7 +23,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             SynchronizationContext.SetSynchronizationContext(context);
 
             var printerSelector =
-                PrinterSelector<IAsyncPrinter>.FromLocalServer<IAsyncPrinter>(q => new Printer(q));
+                PrinterSelector<IAsyncPrinter>.FromLocalServer<IAsyncPrinter>(
+                    q => new AsyncPrinter(q)
+                );
             var printingController =
                 new PrintingController(printerSelector);
             var mainWindow =
