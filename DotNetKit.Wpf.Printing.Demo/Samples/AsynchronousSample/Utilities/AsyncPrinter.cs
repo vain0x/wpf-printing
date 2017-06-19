@@ -7,14 +7,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Xps;
 using DotNetKit.Windows.Documents;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing
+namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities
 {
-    public sealed class Printer
-        : IPrinter
+    public sealed class AsyncPrinter
+        : IAsyncPrinter
     {
         readonly PrintQueue printQueue;
 
@@ -23,7 +21,12 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             get { return printQueue.Name; }
         }
 
-        public void Print(IEnumerable pages, Size pageSize)
+        public Task
+            PrintAsync(
+                IEnumerable pages,
+                Size pageSize,
+                CancellationToken cancellationToken = default(CancellationToken)
+            )
         {
             var isLandscape = pageSize.Width > pageSize.Height;
             var mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
@@ -33,15 +36,15 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             ticket.PageMediaSize = new PageMediaSize(mediaSize.Width, mediaSize.Height);
             ticket.PageOrientation = PageOrientation.Portrait;
 
-            // Generate FixedDocument to be printed from data contexts.
+            // Generate FixedDocument to be printed.
             var document = new FixedDocumentCreator().FromDataContexts(pages, pageSize);
 
-            // Print.
+            // Print asynchronously.
             var writer = PrintQueue.CreateXpsDocumentWriter(printQueue);
-            writer.Write(document);
+            return writer.WriteAsyncAsTask(document, cancellationToken);
         }
 
-        public Printer(PrintQueue printQueue)
+        public AsyncPrinter(PrintQueue printQueue)
         {
             this.printQueue = printQueue;
         }

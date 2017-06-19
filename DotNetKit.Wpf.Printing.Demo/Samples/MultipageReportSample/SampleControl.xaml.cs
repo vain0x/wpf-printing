@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.PrintPreviewers;
 
 namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
 {
@@ -29,8 +30,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
             var previewer =
                 new PrintPreviewer<OrderFormPage>(
                     new OrderFormPage(),
-                    DataGridPrintablePaginator<Order>.Instance,
-                    PrinterSelector.FromLocalServer()
+                    new DataGridPrintablePaginator<Order>().Paginate,
+                    PrinterSelector<IPrinter>.FromLocalServer<IPrinter>(q => new Printer(q))
                 );
             DataContext = previewer;
 

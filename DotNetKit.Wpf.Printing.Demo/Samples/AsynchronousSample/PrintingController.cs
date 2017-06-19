@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities;
 using DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -17,7 +18,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
     public sealed class PrintingController
         : BindableBase
     {
-        public PrinterSelector PrinterSelector { get; }
+        public PrinterSelector<IAsyncPrinter> PrinterSelector { get; }
 
         public DelegateCommand PrintCommand { get; }
 
@@ -43,7 +44,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             }
         }
 
-        public PrintingController(PrinterSelector printerSelector)
+        public PrintingController(PrinterSelector<IAsyncPrinter> printerSelector)
         {
             PrinterSelector = printerSelector;
 
@@ -67,7 +68,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                     {
                         var printable = new OrderFormPage();
                         var pageSize = new Size(793.7, 1122.52);
-                        var paginator = DataGridPrintablePaginator<Order>.Instance;
 
                         var printer = PrinterSelector.SelectedPrinterOrNull;
                         if (printer == null) return;
@@ -76,7 +76,9 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                         CurrentCts = cts;
                         try
                         {
-                            await printer.PrintAsync(printable, paginator, pageSize, cts.Token);
+                            var paginator = new DataGridPrintablePaginator<Order>();
+                            var pages = paginator.Paginate(printable, pageSize);
+                            await printer.PrintAsync(pages, pageSize, cts.Token);
                         }
                         finally
                         {

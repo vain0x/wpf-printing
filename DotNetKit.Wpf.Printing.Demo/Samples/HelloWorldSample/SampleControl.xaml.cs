@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.PrintPreviewers;
 
 namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
 {
@@ -29,8 +30,8 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
             var previewer =
                 new PrintPreviewer<HelloWorldPage>(
                     new HelloWorldPage(),
-                    SingletonPaginator<HelloWorldPage>.Instance,
-                    PrinterSelector.FromLocalServer()
+                    (page, _) => new[] { page },
+                    PrinterSelector<IPrinter>.FromLocalServer<IPrinter>(q => new Printer(q))
                 );
             DataContext = previewer;
 

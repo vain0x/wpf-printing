@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,24 +11,22 @@ using System.Windows.Media;
 
 namespace DotNetKit.Windows.Documents
 {
-    public static class PaginatorExtension
+    /// <summary>
+    /// Provides functions.
+    /// </summary>
+    public struct FixedDocumentCreator
     {
         /// <summary>
-        /// Paginates the specified printable into pages
-        /// and converts to a <see cref="FixedDocument"/>.
+        /// Converts data contexts to a <see cref="FixedDocument"/>.
         /// </summary>
-        public static FixedDocument
-            ToFixedDocument<P>(this IPaginator<P> paginator, P printable, Size pageSize)
+        public FixedDocument FromDataContexts(IEnumerable contents, Size pageSize)
         {
             var isLandscape = pageSize.Width > pageSize.Height;
-            var mediaSize =
-                isLandscape
-                    ? new Size(pageSize.Height, pageSize.Width)
-                    : pageSize;
+            var mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
 
             var document = new FixedDocument();
 
-            foreach (var content in paginator.Paginate(printable, pageSize))
+            foreach (var content in contents)
             {
                 var presenter =
                     new ContentPresenter()

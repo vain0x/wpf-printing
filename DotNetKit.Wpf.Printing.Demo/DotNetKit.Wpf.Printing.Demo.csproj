@@ -68,17 +68,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Printing\IPrinter.cs" />
-    <Compile Include="Printing\MediaSizeSelector.cs" />
-    <Compile Include="Printing\DoublePercentConverter.cs" />
-    <Compile Include="Printing\PrintPreviewerControl.xaml.cs">
+    <Compile Include="PrintPreviewers\MediaSizeSelector.cs" />
+    <Compile Include="PrintPreviewers\DoublePercentConverter.cs" />
+    <Compile Include="PrintPreviewers\PrintPreviewerControl.xaml.cs">
       <DependentUpon>PrintPreviewerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Printing\PrintPreviewer.cs" />
+    <Compile Include="PrintPreviewers\PrintPreviewer.cs" />
     <Compile Include="Printing\Printer.cs" />
-    <Compile Include="Printing\PrintPreviewPage.cs" />
+    <Compile Include="PrintPreviewers\PrintPreviewPage.cs" />
     <Compile Include="Printing\PrinterSelector.cs" />
-    <Compile Include="Printing\ScaleSelector.cs" />
-    <Compile Include="Printing\Xps\XpsDocumentWriterExtension.cs" />
+    <Compile Include="PrintPreviewers\ScaleSelector.cs" />
+    <Compile Include="Samples\AsynchronousSample\Utilities\XpsDocumentWriterExtension.cs" />
     <Compile Include="Samples\AsynchronousSample\PrintProgram.cs" />
     <Compile Include="Samples\AsynchronousSample\PrintingControllerWindow.xaml.cs">
       <DependentUpon>PrintingControllerWindow.xaml</DependentUpon>
@@ -87,6 +87,8 @@
     <Compile Include="Samples\AsynchronousSample\SampleControl.xaml.cs">
       <DependentUpon>SampleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\AsynchronousSample\Utilities\AsyncPrinter.cs" />
+    <Compile Include="Samples\AsynchronousSample\Utilities\IAsyncPrinter.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPage.cs" />
     <Compile Include="Samples\HelloWorldSample\HelloWorldPageControl.xaml.cs">
       <DependentUpon>HelloWorldPageControl.xaml</DependentUpon>
@@ -115,7 +117,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Printing\PrintPreviewerControl.xaml">
+    <Page Include="PrintPreviewers\PrintPreviewerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

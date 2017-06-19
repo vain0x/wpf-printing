@@ -12,63 +12,71 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     /// <summary>
     /// Represents a selector to choose a printer.
     /// </summary>
-    public sealed class PrinterSelector
+    public sealed class PrinterSelector<TPrinter>
         : BindableBase
         , IDisposable
     {
-        public IReadOnlyList<IPrinter> Items { get; }
+        public IReadOnlyList<TPrinter> Printers { get; }
 
-        IPrinter selectedPrinterOrNull;
-        public IPrinter SelectedPrinterOrNull
+        TPrinter selectedPrinterOrNull;
+        public TPrinter SelectedPrinterOrNull
         {
             get { return selectedPrinterOrNull; }
             set { SetProperty(ref selectedPrinterOrNull, value); }
         }
 
-        readonly LocalPrintServer localPrintServer;
-        readonly PrintQueueCollection printQueueCollection;
+        readonly IDisposable disposable;
 
         public void Dispose()
         {
-            localPrintServer.Dispose();
-            printQueueCollection.Dispose();
+            disposable.Dispose();
         }
 
         PrinterSelector(
-            IReadOnlyList<IPrinter> items,
-            IPrinter defaultPrinterOrNull,
-            LocalPrintServer localPrintServer,
-            PrintQueueCollection printQueueCollection
+            IReadOnlyList<TPrinter> printers,
+            TPrinter defaultPrinterOrNull,
+            IDisposable disposable
         )
         {
-            this.localPrintServer = localPrintServer;
-            this.printQueueCollection = printQueueCollection;
+            this.disposable = disposable;
 
-            Items = items;
+            Printers = printers;
             SelectedPrinterOrNull = defaultPrinterOrNull;
         }
 
-        public static PrinterSelector FromLocalServer()
+        static int DefaultIndex(PrintQueue[] queues, PrintQueue defaultPrintQueue)
+        {
+            if (defaultPrintQueue != null)
+            {
+                for (var i = 0; i < queues.Length; i++)
+                {
+                    if (queues[i].Name == defaultPrintQueue.Name) return i;
+                }
+            }
+
+            return queues.Length == 0 ? -1 : 0;
+        }
+
+        public static PrinterSelector<P>
+            FromLocalServer<P>(Func<PrintQueue, P> printerFromPrintQueue)
+            where P : class
         {
             var server = new LocalPrintServer();
-            var queues = server.GetPrintQueues();
-            var items = queues.Select(q => new Printer(q)).ToArray();
+            var printQueueCollection = server.GetPrintQueues();
 
-            var defaultPrintQueue = server.DefaultPrintQueue;
+            var disposable =
+                new AnonymousDisposable(() =>
+                {
+                    server.Dispose();
+                    printQueueCollection.Dispose();
+                });
 
-            var defaultPrinter = default(IPrinter);
-            if (defaultPrintQueue == null)
-            {
-                defaultPrinter = items.FirstOrDefault();
-            }
-            else
-            { 
-                defaultPrinter =
-                    items.FirstOrDefault(p => p.Name == defaultPrintQueue.Name)
-                    ?? items.FirstOrDefault();
-            }
+            var queues = printQueueCollection.Cast<PrintQueue>().ToArray();
+            var defaultIndex = DefaultIndex(queues, server.DefaultPrintQueue);
 
-            return new PrinterSelector(items, defaultPrinter, server, queues);
+            var printers = queues.Select(printerFromPrintQueue).ToArray();
+            var defaultPrinter = defaultIndex >= 0 ? printers[defaultIndex] : null;
+            return new PrinterSelector<P>(printers, defaultPrinter, disposable);
         }
     }
 }

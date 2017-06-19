@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing
+namespace DotNetKit.Wpf.Printing.Demo.PrintPreviewers
 {
     public sealed class PrintPreviewPage
     {

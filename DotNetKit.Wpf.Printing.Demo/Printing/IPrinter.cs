@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
@@ -14,19 +15,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
     {
         string Name { get; }
 
-        void
-            Print<P>(
-                P printable,
-                IPaginator<P> paginator,
-                Size pageSize
-            );
-
-        Task
-            PrintAsync<P>(
-                P printable,
-                IPaginator<P> paginator,
-                Size pageSize,
-                CancellationToken cancellationToken = default(CancellationToken)
-            );
+        void Print(IEnumerable pages, Size pageSize);
     }
 }

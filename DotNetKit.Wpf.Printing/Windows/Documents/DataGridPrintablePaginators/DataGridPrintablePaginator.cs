@@ -9,14 +9,11 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using DotNetKit.Windows.Controls;
 using DotNetKit.Windows.Documents;
-using DotNetKit.Windows.Media;
 
 namespace DotNetKit.Windows.Documents
 {
-    public sealed class DataGridPrintablePaginator<TItem>
-        : IPaginator<IDataGridPrintable<TItem>>
+    public struct DataGridPrintablePaginator<TItem>
     {
-        #region Paginate
         sealed class PaginateFunction
         {
             readonly IDataGridPrintable<TItem> printable;
@@ -89,7 +86,7 @@ namespace DotNetKit.Windows.Documents
                     var presenter = PagePresenterFromRestItems();
                     var dataGrid = DataGridFromPagePresenter(presenter);
                     var count = CountVisibleRows(dataGrid);
-                    if (count == 0) throw new InfinitePagePaginationException();
+                    if (count == 0) throw new InfinitePaginationException();
 
                     chunks.Add(new ArraySegment<TItem>(allItems, index, count));
                     index += count;
@@ -112,13 +109,5 @@ namespace DotNetKit.Windows.Documents
             var allItems = printable.Items.ToArray();
             return new PaginateFunction(printable, allItems, pageSize).Paginate();
         }
-        #endregion
-
-        DataGridPrintablePaginator()
-        {
-        }
-
-        public static IPaginator<IDataGridPrintable<TItem>> Instance { get; } =
-            new DataGridPrintablePaginator<TItem>();
     }
 }
