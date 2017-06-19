@@ -22,10 +22,7 @@ namespace DotNetKit.Windows.Documents
         public FixedDocument FromDataContexts(IEnumerable contents, Size pageSize)
         {
             var isLandscape = pageSize.Width > pageSize.Height;
-            var mediaSize =
-                isLandscape
-                    ? new Size(pageSize.Height, pageSize.Width)
-                    : pageSize;
+            var mediaSize = isLandscape ? new Size(pageSize.Height, pageSize.Width) : pageSize;
 
             var document = new FixedDocument();
 

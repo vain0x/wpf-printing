@@ -60,10 +60,7 @@ namespace DotNetKit.Wpf.Printing.Demo.PrintPreviewers
             get
             {
                 var mediaSize = MediaSizeSelector.SelectedSize;
-                return
-                    IsLandscape
-                        ? new Size(mediaSize.Height, mediaSize.Width)
-                        : mediaSize;
+                return IsLandscape ? new Size(mediaSize.Height, mediaSize.Width) : mediaSize;
             }
         }
 
