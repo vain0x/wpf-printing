@@ -30,7 +30,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
             var previewer =
                 new PrintPreviewer<OrderFormPage>(
                     new OrderFormPage(),
-                    DataGridPrintablePaginator<Order>.Instance.Paginate,
+                    new DataGridPrintablePaginator<Order>().Paginate,
                     PrinterSelector<IPrinter>.FromLocalServer<IPrinter>(q => new Printer(q))
                 );
             DataContext = previewer;

@@ -68,7 +68,6 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                     {
                         var printable = new OrderFormPage();
                         var pageSize = new Size(793.7, 1122.52);
-                        var paginator = DataGridPrintablePaginator<Order>.Instance;
 
                         var printer = PrinterSelector.SelectedPrinterOrNull;
                         if (printer == null) return;
@@ -77,6 +76,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
                         CurrentCts = cts;
                         try
                         {
+                            var paginator = new DataGridPrintablePaginator<Order>();
                             var pages = paginator.Paginate(printable, pageSize);
                             await printer.PrintAsync(pages, pageSize, cts.Token);
                         }

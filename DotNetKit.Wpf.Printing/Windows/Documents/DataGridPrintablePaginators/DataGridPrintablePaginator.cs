@@ -12,9 +12,8 @@ using DotNetKit.Windows.Documents;
 
 namespace DotNetKit.Windows.Documents
 {
-    public sealed class DataGridPrintablePaginator<TItem>
+    public struct DataGridPrintablePaginator<TItem>
     {
-        #region Paginate
         sealed class PaginateFunction
         {
             readonly IDataGridPrintable<TItem> printable;
@@ -110,13 +109,5 @@ namespace DotNetKit.Windows.Documents
             var allItems = printable.Items.ToArray();
             return new PaginateFunction(printable, allItems, pageSize).Paginate();
         }
-        #endregion
-
-        DataGridPrintablePaginator()
-        {
-        }
-
-        public static DataGridPrintablePaginator<TItem> Instance { get; } =
-            new DataGridPrintablePaginator<TItem>();
     }
 }
