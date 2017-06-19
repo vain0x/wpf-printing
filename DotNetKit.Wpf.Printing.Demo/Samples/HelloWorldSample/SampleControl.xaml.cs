@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,18 +28,37 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
         {
             InitializeComponent();
 
-            var previewer =
-                new PrintPreviewer<HelloWorldPage>(
-                    new HelloWorldPage(),
-                    (page, _) => new[] { page },
-                    PrinterSelector<IPrinter>.FromLocalServer<IPrinter>(q => new Printer(q))
-                );
-            DataContext = previewer;
+            DataContext = this;
+        }
 
-            Loaded += (sender, e) =>
+        /// <summary>
+        /// Gets the data for the page to be printed.
+        /// </summary>
+        public HelloWorldPage Page { get; } =
+            new HelloWorldPage();
+
+        /// <summary>
+        /// Gets the page size (A4).
+        /// </summary>
+        public Size PageSize
+        {
+            get { return new Size(793.7, 1122.52); }
+        }
+
+        /// <summary>
+        /// Prints the page.
+        /// </summary>
+        void printMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            using (var server = new LocalPrintServer())
+            using (var printQueue = server.DefaultPrintQueue)
             {
-                previewer.UpdatePreview();
-            };
+                // Create a printer which provides Print function.
+                var printer = new Printer(printQueue);
+
+                // Print single A4-size page.
+                printer.Print(new[] { Page }, PageSize);
+            }
         }
     }
 }

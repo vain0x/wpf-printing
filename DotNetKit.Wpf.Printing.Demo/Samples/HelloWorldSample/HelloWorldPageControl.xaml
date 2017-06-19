@@ -6,9 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample"
     mc:Ignorable="d" 
-    d:DesignWidth="793.7"
-    d:DesignHeight="1122.52"
-    d:DataContext="{x:Static local:HelloWorldPage.DesignerInstance}"
+    d:DesignWidth="300"
+    d:DesignHeight="300"
     >
     <Grid Margin="30">
         <StackPanel>
