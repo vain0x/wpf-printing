@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DotNetKit.Windows.Documents;
 using DotNetKit.Wpf.Printing.Demo.Printing;
+using DotNetKit.Wpf.Printing.Demo.PrintPreviewers;
 
 namespace DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample
 {

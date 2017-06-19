@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing
+namespace DotNetKit.Wpf.Printing.Demo.PrintPreviewers
 {
     public sealed class DoublePercentConverter
         : IValueConverter

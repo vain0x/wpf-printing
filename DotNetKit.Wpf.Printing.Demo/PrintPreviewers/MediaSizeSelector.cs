@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Prism.Mvvm;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing
+namespace DotNetKit.Wpf.Printing.Demo.PrintPreviewers
 {
     public sealed class MediaSizeSelector
         : BindableBase

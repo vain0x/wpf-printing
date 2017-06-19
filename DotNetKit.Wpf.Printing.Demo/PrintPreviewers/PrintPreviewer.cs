@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using DotNetKit.Windows.Documents;
+using DotNetKit.Wpf.Printing.Demo.Printing;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing
+namespace DotNetKit.Wpf.Printing.Demo.PrintPreviewers
 {
     public interface IPrintPreviewer
         : IDisposable
