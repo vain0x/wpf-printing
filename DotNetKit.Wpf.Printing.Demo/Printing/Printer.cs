@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Xps;
 using DotNetKit.Windows.Documents;
-using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
 
 namespace DotNetKit.Wpf.Printing.Demo.Printing
 {

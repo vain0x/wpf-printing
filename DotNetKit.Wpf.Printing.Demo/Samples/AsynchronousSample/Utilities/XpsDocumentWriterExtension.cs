@@ -9,7 +9,7 @@ using System.Windows.Documents.Serialization;
 using System.Windows.Xps;
 using DotNetKit.Misc.Disposables;
 
-namespace DotNetKit.Wpf.Printing.Demo.Printing.Xps
+namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities
 {
     public static class XpsDocumentWriterExtension
     {

@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using DotNetKit.Windows.Documents;
-using DotNetKit.Wpf.Printing.Demo.Printing.Xps;
 
 namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample.Utilities
 {

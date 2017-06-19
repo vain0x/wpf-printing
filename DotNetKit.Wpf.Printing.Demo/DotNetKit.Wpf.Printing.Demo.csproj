@@ -78,7 +78,7 @@
     <Compile Include="Printing\PrintPreviewPage.cs" />
     <Compile Include="Printing\PrinterSelector.cs" />
     <Compile Include="Printing\ScaleSelector.cs" />
-    <Compile Include="Printing\Xps\XpsDocumentWriterExtension.cs" />
+    <Compile Include="Samples\AsynchronousSample\Utilities\XpsDocumentWriterExtension.cs" />
     <Compile Include="Samples\AsynchronousSample\PrintProgram.cs" />
     <Compile Include="Samples\AsynchronousSample\PrintingControllerWindow.xaml.cs">
       <DependentUpon>PrintingControllerWindow.xaml</DependentUpon>
