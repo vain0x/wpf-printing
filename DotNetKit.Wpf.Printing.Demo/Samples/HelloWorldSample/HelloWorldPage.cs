@@ -12,8 +12,5 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample
         public string Title => "HELLO WORLD REPORT";
         public DateTime IssueDate => new DateTime(2007, 8, 31);
         public string Message => "Hello, world!";
-
-        public static HelloWorldPage DesignerInstance { get; } =
-            new HelloWorldPage();
     }
 }
