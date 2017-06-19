@@ -46,6 +46,7 @@
     <Compile Include="Windows\Controls\PrintableDataGrids\PrintableDataGridCell.xaml.cs">
       <DependentUpon>PrintableDataGridCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Documents\DataGridPrintablePaginators\AsyncProgressReporter.cs" />
     <Compile Include="Windows\Documents\DataGridPrintablePaginators\InfinitePaginationException.cs" />
     <Compile Include="Windows\Documents\FixedDocumentCreator.cs" />
     <Compile Include="Windows\Controls\PrintableDataGrids\IPrintableDataGrid.cs" />

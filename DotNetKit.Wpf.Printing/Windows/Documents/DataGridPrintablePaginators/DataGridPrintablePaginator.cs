@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,11 +15,12 @@ namespace DotNetKit.Windows.Documents
 {
     public struct DataGridPrintablePaginator<TItem>
     {
-        sealed class PaginateFunction
+        sealed class PaginateAsyncFunction
         {
             readonly IDataGridPrintable<TItem> printable;
             readonly TItem[] allItems;
             readonly Size pageSize;
+            readonly CancellationToken cancellationToken;
 
             int index;
             int pageIndex;
@@ -77,12 +79,15 @@ namespace DotNetKit.Windows.Documents
                 return pages;
             }
 
-            public IEnumerable Paginate()
+            public async Task<IEnumerable> PaginateAsync()
             {
                 var chunks = new List<ArraySegment<TItem>>();
 
                 while (index < allItems.Length)
                 {
+                    await awaitable;
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     var presenter = PagePresenterFromRestItems();
                     var dataGrid = DataGridFromPagePresenter(presenter);
                     var count = CountVisibleRows(dataGrid);
@@ -96,7 +101,13 @@ namespace DotNetKit.Windows.Documents
                 return PagesFromChunks(chunks);
             }
 
-            public PaginateFunction(IDataGridPrintable<TItem> printable, TItem[] allItems, Size pageSize)
+            public
+                PaginateAsyncFunction(
+                    IDataGridPrintable<TItem> printable,
+                    TItem[] allItems,
+                    Size pageSize,
+                    CancellationToken cancellationToken
+                )
             {
                 this.printable = printable;
                 this.pageSize = pageSize;
@@ -104,10 +115,20 @@ namespace DotNetKit.Windows.Documents
             }
         }
 
-        public IEnumerable Paginate(IDataGridPrintable<TItem> printable, Size pageSize)
+        public Task<IEnumerable>
+            PaginateAsync(
+                IDataGridPrintable<TItem> printable,
+                Size pageSize,
+                CancellationToken cancellationToken = default(CancellationToken)
+            )
         {
-            var allItems = printable.Items.ToArray();
-            return new PaginateFunction(printable, allItems, pageSize).Paginate();
+            return
+                new PaginateAsyncFunction(
+                    printable,
+                    printable.Items.ToArray(),
+                    pageSize,
+                    cancellationToken
+                ).PaginateAsync();
         }
     }
 }
