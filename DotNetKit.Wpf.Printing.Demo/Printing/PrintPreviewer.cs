@@ -48,7 +48,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
         public ScaleSelector ScaleSelector { get; } =
             new ScaleSelector();
 
-        public PrinterSelector PrinterSelector { get; }
+        public PrinterSelector<IPrinter> PrinterSelector { get; }
 
         public DelegateCommand PreviewCommand { get; }
 
@@ -94,7 +94,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Printing
             PrintPreviewer(
                 TPrintable printable,
                 Func<TPrintable, Size, IEnumerable> paginate,
-                PrinterSelector printerSelector
+                PrinterSelector<IPrinter> printerSelector
             )
         {
             this.printable = printable;

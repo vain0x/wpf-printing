@@ -17,7 +17,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
     public sealed class PrintingController
         : BindableBase
     {
-        public PrinterSelector PrinterSelector { get; }
+        public PrinterSelector<IPrinter> PrinterSelector { get; }
 
         public DelegateCommand PrintCommand { get; }
 
@@ -43,7 +43,7 @@ namespace DotNetKit.Wpf.Printing.Demo.Samples.AsynchronousSample
             }
         }
 
-        public PrintingController(PrinterSelector printerSelector)
+        public PrintingController(PrinterSelector<IPrinter> printerSelector)
         {
             PrinterSelector = printerSelector;
 
