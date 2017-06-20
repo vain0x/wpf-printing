@@ -49,10 +49,6 @@ namespace DotNetKit.Windows.Documents
                     };
                 page.Children.Add(presenter);
 
-                page.Measure(mediaSize);
-                page.Arrange(new Rect(new Point(0, 0), mediaSize));
-                page.UpdateLayout();
-
                 var pageContent = new PageContent() { Child = page };
                 document.Pages.Add(pageContent);
             }
