@@ -9,10 +9,13 @@ using System.Windows;
 namespace DotNetKit.Windows.Controls
 {
     /// <summary>
-    /// Represents a printable control which contains a <see cref="PrintableDataGrid"/>.
+    /// Represents a UI element which contains a <see cref="IPrintableDataGrid"/>.
     /// </summary>
     public interface IPrintableDataGridContainer
     {
+        /// <summary>
+        /// Gets the data grid.
+        /// </summary>
         IPrintableDataGrid DataGrid { get; }
     }
 }

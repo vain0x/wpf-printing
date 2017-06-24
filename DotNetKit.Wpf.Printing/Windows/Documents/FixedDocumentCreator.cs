@@ -12,7 +12,7 @@ using System.Windows.Media;
 namespace DotNetKit.Windows.Documents
 {
     /// <summary>
-    /// Provides functions.
+    /// Provides a function.
     /// </summary>
     public struct FixedDocumentCreator
     {

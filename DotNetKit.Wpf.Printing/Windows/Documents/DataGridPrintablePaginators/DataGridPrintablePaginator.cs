@@ -12,6 +12,10 @@ using DotNetKit.Windows.Documents;
 
 namespace DotNetKit.Windows.Documents
 {
+    /// <summary>
+    /// Provides <see cref="Paginate(IDataGridPrintable{TItem}, Size)"/> function.
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
     public struct DataGridPrintablePaginator<TItem>
     {
         sealed class PaginateFunction
@@ -104,6 +108,12 @@ namespace DotNetKit.Windows.Documents
             }
         }
 
+        /// <summary>
+        /// Paginates a printable into papers of the specified size.
+        /// </summary>
+        /// <param name="printable"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public IEnumerable Paginate(IDataGridPrintable<TItem> printable, Size pageSize)
         {
             var allItems = printable.Items.ToArray();

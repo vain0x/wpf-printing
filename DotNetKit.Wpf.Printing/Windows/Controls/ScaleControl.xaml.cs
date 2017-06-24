@@ -33,6 +33,9 @@ namespace DotNetKit.Windows.Controls
                     ));
         }
 
+        /// <summary>
+        /// Measures.
+        /// </summary>
         protected override Size MeasureOverride(Size availableSize)
         {
             if (availableSize.Height <= double.Epsilon)
@@ -70,6 +73,9 @@ namespace DotNetKit.Windows.Controls
             }
         }
 
+        /// <summary>
+        /// Arranges.
+        /// </summary>
         protected override Size ArrangeOverride(Size finalSize)
         {
             var scaleTransform = new ScaleTransform(scale, scale);

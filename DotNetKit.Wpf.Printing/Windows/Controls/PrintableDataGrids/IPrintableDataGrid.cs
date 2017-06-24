@@ -7,6 +7,9 @@ using System.Windows.Controls;
 
 namespace DotNetKit.Windows.Controls
 {
+    /// <summary>
+    /// Represents a UI element to display a list of items linearly.
+    /// </summary>
     public interface IPrintableDataGrid
     {
         /// <summary>

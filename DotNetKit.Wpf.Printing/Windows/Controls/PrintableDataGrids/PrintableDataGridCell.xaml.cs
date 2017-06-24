@@ -20,6 +20,9 @@ namespace DotNetKit.Windows.Controls
     /// </summary>
     public partial class PrintableDataGridCell : UserControl
     {
+        /// <summary>
+        /// Constructs an instance.
+        /// </summary>
         public PrintableDataGridCell()
         {
             InitializeComponent();

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DotNetKit.Wpf.Printing</id>
+    <version>1.0.0</version>
+    <authors>vain0</authors>
+    <language>en-US</language>
+    <projectUrl>https://github.com/DotNetKit/DotNetKit.Wpf.Printing</projectUrl>
+    <licenseUrl>https://github.com/DotNetKit/DotNetKit.Wpf.Printing/blob/master/LICENSE.md</licenseUrl>
+    <description>
+      Provides utilities for printing with WPF.
+    </description>
+  </metadata>
+  <files>
+    <file src="bin\Release\**" target="lib\net45" />
+  </files>
+</package>
