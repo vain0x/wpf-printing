@@ -31,6 +31,9 @@ namespace DotNetKit.Windows.Controls
         readonly ObservableCollection<PrintableDataGridColumn> columns =
             new ObservableCollection<PrintableDataGridColumn>();
 
+        /// <summary>
+        /// Gets an collection to store columns.
+        /// </summary>
         public ObservableCollection<PrintableDataGridColumn> Columns
         {
             get { return columns; }
@@ -50,11 +53,19 @@ namespace DotNetKit.Windows.Controls
                 }
             );
 
+        /// <summary>
+        /// Gets the dependency property of <see cref="ItemsSource"/>.
+        /// </summary>
         public DependencyProperty ItemsSourceProperty
         {
             get { return itemsSourceProperty; }
         }
 
+        /// <summary>
+        /// Gets or sets the sequence of items.
+        /// This control don't care <see cref="INotifyCollectionChanged"/>
+        /// implemented by the sequence.
+        /// </summary>
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
@@ -85,11 +96,17 @@ namespace DotNetKit.Windows.Controls
                 }
             );
 
+        /// <summary>
+        /// Gets the dependency property of <see cref="RowHeight"/>.
+        /// </summary>
         public static DependencyProperty RowHeightProperty
         {
             get { return rowHeightProperty; }
         }
 
+        /// <summary>
+        /// Gets or sets the height of rows.
+        /// </summary>
         public GridLength RowHeight
         {
             get { return (GridLength)GetValue(RowHeightProperty); }
@@ -238,6 +255,9 @@ namespace DotNetKit.Windows.Controls
             ActualHeight - grid.RowDefinitions[0].ActualHeight;
         #endregion
 
+        /// <summary>
+        /// Constructs an instance.
+        /// </summary>
         public PrintableDataGrid()
         {
             grid = new Grid();

@@ -10,10 +10,16 @@ using System.Windows.Data;
 
 namespace DotNetKit.Windows.Controls
 {
+    /// <summary>
+    /// Represents a column of <see cref="PrintableDataGrid"/>.
+    /// </summary>
     public class PrintableDataGridColumn
         : DependencyObject
     {
         #region Width
+        /// <summary>
+        /// Gets the dependency property of <see cref="Width"/>.
+        /// </summary>
         public static DependencyProperty WidthProperty { get; } =
             DependencyProperty.Register(
                 nameof(Width),
@@ -21,6 +27,9 @@ namespace DotNetKit.Windows.Controls
                 typeof(PrintableDataGridColumn)
             );
 
+        /// <summary>
+        /// Gets or sets the width of this column.
+        /// </summary>
         public GridLength Width
         {
             get { return (GridLength)GetValue(WidthProperty); }
@@ -29,6 +38,9 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region Header
+        /// <summary>
+        /// Gets the dependency property of <see cref="Header"/>.
+        /// </summary>
         public static DependencyProperty HeaderProperty { get; } =
             DependencyProperty.Register(
                 nameof(Header),
@@ -36,6 +48,9 @@ namespace DotNetKit.Windows.Controls
                 typeof(PrintableDataGridColumn)
             );
 
+        /// <summary>
+        /// Gets or sets the header content for this column.
+        /// </summary>
         public object Header
         {
             get { return GetValue(HeaderProperty); }
@@ -44,6 +59,9 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region HeaderTemplate
+        /// <summary>
+        /// Gets the dependency property of <see cref="HeaderTemplate"/>.
+        /// </summary>
         public static DependencyProperty HeaderTemplateProperty { get; } =
             DependencyProperty.Register(
                 nameof(HeaderTemplate),
@@ -51,6 +69,9 @@ namespace DotNetKit.Windows.Controls
                 typeof(PrintableDataGridColumn)
             );
 
+        /// <summary>
+        /// Gets or sets the data template for this column's header.
+        /// </summary>
         public DataTemplate HeaderTemplate
         {
             get { return (DataTemplate)GetValue(HeaderTemplateProperty); }
@@ -59,6 +80,9 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region HeaderTemplateSelector
+        /// <summary>
+        /// Gets the dependency property of <see cref="HeaderTemplateSelector"/>.
+        /// </summary>
         public static DependencyProperty HeaderTemplateSelectorProperty { get; } =
             DependencyProperty.Register(
                 nameof(HeaderTemplateSelector),
@@ -66,6 +90,9 @@ namespace DotNetKit.Windows.Controls
                 typeof(PrintableDataGridColumn)
             );
 
+        /// <summary>
+        /// Gets or sets the data template selector for this column's header.
+        /// </summary>
         public DataTemplateSelector HeaderTemplateSelector
         {
             get { return (DataTemplateSelector)GetValue(HeaderTemplateSelectorProperty); }
@@ -74,6 +101,9 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region CellTemplate
+        /// <summary>
+        /// Gets the dependency property of <see cref="CellTemplate"/>.
+        /// </summary>
         public static DependencyProperty CellTemplateProperty { get; } =
             DependencyProperty.Register(
                 nameof(CellTemplate),
@@ -81,6 +111,9 @@ namespace DotNetKit.Windows.Controls
                 typeof(PrintableDataGridColumn)
             );
 
+        /// <summary>
+        /// Gets or sets the data template for this column's cells.
+        /// </summary>
         public DataTemplate CellTemplate
         {
             get { return (DataTemplate)GetValue(CellTemplateProperty); }
@@ -89,6 +122,9 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region CellTemplateSelector
+        /// <summary>
+        /// Gets the dependency property of <see cref="CellTemplateSelector"/>.
+        /// </summary>
         public static DependencyProperty CellTemplateSelectorProperty { get; } =
             DependencyProperty.Register(
                 nameof(CellTemplateSelector),
@@ -96,6 +132,9 @@ namespace DotNetKit.Windows.Controls
                 typeof(PrintableDataGridColumn)
             );
 
+        /// <summary>
+        /// Gets or sets the data template selector for this column's cells.
+        /// </summary>
         public DataTemplateSelector CellTemplateSelector
         {
             get { return (DataTemplateSelector)GetValue(CellTemplateSelectorProperty); }
@@ -104,7 +143,7 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region CellBinding
-        static Binding cellBindingDefault = new Binding();
+        static readonly Binding cellBindingDefault = new Binding();
 
         Binding cellBinding;
 
@@ -119,6 +158,9 @@ namespace DotNetKit.Windows.Controls
         }
         #endregion
 
+        /// <summary>
+        /// Gets or sets the style for cells.
+        /// </summary>
         public Style CellStyle { get; set; }
     }
 }
