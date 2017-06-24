@@ -20,7 +20,7 @@ namespace DotNetKit.Windows.Controls
         /// <summary>
         /// Gets the dependency property of <see cref="Width"/>.
         /// </summary>
-        public static DependencyProperty WidthProperty { get; } =
+        public static readonly DependencyProperty WidthProperty =
             DependencyProperty.Register(
                 nameof(Width),
                 typeof(GridLength),
@@ -41,7 +41,7 @@ namespace DotNetKit.Windows.Controls
         /// <summary>
         /// Gets the dependency property of <see cref="Header"/>.
         /// </summary>
-        public static DependencyProperty HeaderProperty { get; } =
+        public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register(
                 nameof(Header),
                 typeof(object),
@@ -62,7 +62,7 @@ namespace DotNetKit.Windows.Controls
         /// <summary>
         /// Gets the dependency property of <see cref="HeaderTemplate"/>.
         /// </summary>
-        public static DependencyProperty HeaderTemplateProperty { get; } =
+        public static readonly DependencyProperty HeaderTemplateProperty =
             DependencyProperty.Register(
                 nameof(HeaderTemplate),
                 typeof(DataTemplate),
@@ -83,7 +83,7 @@ namespace DotNetKit.Windows.Controls
         /// <summary>
         /// Gets the dependency property of <see cref="HeaderTemplateSelector"/>.
         /// </summary>
-        public static DependencyProperty HeaderTemplateSelectorProperty { get; } =
+        public static readonly DependencyProperty HeaderTemplateSelectorProperty =
             DependencyProperty.Register(
                 nameof(HeaderTemplateSelector),
                 typeof(DataTemplateSelector),
@@ -104,7 +104,7 @@ namespace DotNetKit.Windows.Controls
         /// <summary>
         /// Gets the dependency property of <see cref="CellTemplate"/>.
         /// </summary>
-        public static DependencyProperty CellTemplateProperty { get; } =
+        public static readonly DependencyProperty CellTemplateProperty =
             DependencyProperty.Register(
                 nameof(CellTemplate),
                 typeof(DataTemplate),
@@ -125,7 +125,7 @@ namespace DotNetKit.Windows.Controls
         /// <summary>
         /// Gets the dependency property of <see cref="CellTemplateSelector"/>.
         /// </summary>
-        public static DependencyProperty CellTemplateSelectorProperty { get; } =
+        public static readonly DependencyProperty CellTemplateSelectorProperty =
             DependencyProperty.Register(
                 nameof(CellTemplateSelector),
                 typeof(DataTemplateSelector),

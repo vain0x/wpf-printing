@@ -42,7 +42,10 @@ namespace DotNetKit.Windows.Controls
         object[] items;
 
         #region ItemsSource
-        static DependencyProperty itemsSourceProperty =
+        /// <summary>
+        /// Gets the dependency property of <see cref="ItemsSource"/>.
+        /// </summary>
+        public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(
                 nameof(ItemsSource),
                 typeof(IEnumerable),
@@ -52,14 +55,6 @@ namespace DotNetKit.Windows.Controls
                     PropertyChangedCallback = OnItemsSourceChanged,
                 }
             );
-
-        /// <summary>
-        /// Gets the dependency property of <see cref="ItemsSource"/>.
-        /// </summary>
-        public DependencyProperty ItemsSourceProperty
-        {
-            get { return itemsSourceProperty; }
-        }
 
         /// <summary>
         /// Gets or sets the sequence of items.
@@ -85,7 +80,10 @@ namespace DotNetKit.Windows.Controls
         #endregion
 
         #region RowHeight
-        static DependencyProperty rowHeightProperty =
+        /// <summary>
+        /// Gets the dependency property of <see cref="RowHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty RowHeightProperty =
             DependencyProperty.Register(
                 "RowHeight",
                 typeof(GridLength),
@@ -95,14 +93,6 @@ namespace DotNetKit.Windows.Controls
                     DefaultValue = GridLength.Auto,
                 }
             );
-
-        /// <summary>
-        /// Gets the dependency property of <see cref="RowHeight"/>.
-        /// </summary>
-        public static DependencyProperty RowHeightProperty
-        {
-            get { return rowHeightProperty; }
-        }
 
         /// <summary>
         /// Gets or sets the height of rows.
