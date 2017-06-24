@@ -50,7 +50,7 @@
                 <Button
                     Margin="6,3,6,3"
                     VerticalAlignment="Center"
-                    Content="Update"
+                    Content="Preview"
                     Command="{Binding PreviewCommand}"
                     />
 
