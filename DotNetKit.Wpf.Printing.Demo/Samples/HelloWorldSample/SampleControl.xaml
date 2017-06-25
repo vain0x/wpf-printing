@@ -1,0 +1,41 @@
+﻿<UserControl
+    x:Class="DotNetKit.Wpf.Printing.Demo.Samples.HelloWorldSample.SampleControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignWidth="300"
+    d:DesignHeight="300"
+    >
+    <!-- See also the code-behind. -->
+
+    <DockPanel>
+        <!-- A menu bar to provide the Print menu. -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem
+                x:Name="printMenuItem"
+                Header="Print"
+                ToolTip="Click to start printing."
+                Click="printMenuItem_Click"
+                />
+        </Menu>
+
+        <!-- Preview area. -->
+        <GroupBox Header="Preview">
+            <ScrollViewer>
+                <!-- A A4-sized panel with black borderline. This looks like a paper. -->
+                <Border
+                    x:Name="paper"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    Width="{Binding PageSize.Width}"
+                    Height="{Binding PageSize.Height}"
+                    >
+                    <!-- Page content. -->
+                    <ContentPresenter Content="{Binding Page}" />
+                </Border>
+            </ScrollViewer>
+        </GroupBox>
+    </DockPanel>
+</UserControl>

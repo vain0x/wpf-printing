@@ -1,0 +1,119 @@
+﻿<UserControl
+    x:Class="DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample.OrderFormPageControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:DotNetKit.Wpf.Printing.Demo.Samples.MultipageReportSample"
+    xmlns:printableDataGrid="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.Printing"
+    mc:Ignorable="d" 
+    d:DesignWidth="793.7"
+    d:DesignHeight="1122.52"
+    d:DataContext="{x:Static local:OrderFormPage.DesignerInstance}"
+    >
+    <UserControl.Resources>
+        <Style x:Key="DefaultCellStyle" TargetType="{x:Type printableDataGrid:PrintableDataGridCell}">
+            <Style.Triggers>
+                <Trigger Property="Grid.Column" Value="0">
+                    <Setter Property="BorderThickness" Value="1,0,1,1" />
+                </Trigger>
+
+                <Trigger Property="Grid.Row" Value="0">
+                    <Setter Property="BorderThickness" Value="0,1,1,1" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Trigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Grid.Column" Value="0" />
+                        <Condition Property="Grid.Row" Value="0" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="BorderThickness" Value="1" />
+                </MultiTrigger>
+            </Style.Triggers>
+
+            <Setter Property="Padding" Value="6,0,6,0" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+        </Style>
+
+        <Style
+            TargetType="{x:Type printableDataGrid:PrintableDataGridCell}"
+            BasedOn="{StaticResource DefaultCellStyle}"
+            />
+
+        <Style
+            x:Key="NumberCellStyle"
+            TargetType="{x:Type printableDataGrid:PrintableDataGridCell}"
+            BasedOn="{StaticResource DefaultCellStyle}"
+            >
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel Margin="30">
+        <!-- Header part -->
+        <StackPanel DockPanel.Dock="Top" DataContext="{Binding Header}">
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="30"
+                Text="Order Form"
+                />
+            <TextBlock
+                HorizontalAlignment="Right"
+                Text="{Binding OrderDate, StringFormat=yyyy-MM-dd}"
+                />
+            <TextBlock>
+                <Run Text="{Binding TargetName, Mode=OneTime}"/>
+            </TextBlock>
+
+            <TextBlock HorizontalAlignment="Center" TextDecorations="Underline">
+                Total $<Run Text="{Binding TotalPrice, StringFormat=N0, Mode=OneTime}" />-
+            </TextBlock>
+
+            <TextBlock HorizontalAlignment="Right">
+                Page <Run Text="{Binding PageIndexPlus1, Mode=OneTime}"/>
+                / <Run Text="{Binding PageCount, Mode=OneTime}" />
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Body part -->
+        <printableDataGrid:PrintableDataGrid
+            Grid.Row="1"
+            x:Name="dataGrid"
+            Margin="6,3,6,3"
+            ItemsSource="{Binding Items}"
+            >
+            <printableDataGrid:PrintableDataGrid.Columns>
+                <printableDataGrid:PrintableDataGridColumn
+                    Header="Name"
+                    Width="2*"
+                    CellBinding="{Binding Name}"
+                    />
+                <printableDataGrid:PrintableDataGridColumn
+                    Header="Quantity"
+                    Width="80"
+                    CellBinding="{Binding Count}"
+                    CellStyle="{StaticResource NumberCellStyle}"
+                    />
+                <printableDataGrid:PrintableDataGridColumn
+                    Header="Price"
+                    Width="120"
+                    CellBinding="{Binding UnitPrice}"
+                    CellStyle="{StaticResource NumberCellStyle}"
+                    />
+                <printableDataGrid:PrintableDataGridColumn
+                    Header="Total"
+                    Width="120"
+                    CellBinding="{Binding TotalPrice}"
+                    CellStyle="{StaticResource NumberCellStyle}"
+                    />
+                <printableDataGrid:PrintableDataGridColumn
+                    Header="Note"
+                    Width="3*"
+                    CellBinding="{Binding Note}"
+                    />
+            </printableDataGrid:PrintableDataGrid.Columns>
+        </printableDataGrid:PrintableDataGrid>
+    </DockPanel>
+</UserControl>

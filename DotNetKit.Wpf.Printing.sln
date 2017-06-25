@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetKit.Wpf.Printing", "DotNetKit.Wpf.Printing\DotNetKit.Wpf.Printing.csproj", "{7A3DB768-7294-49FB-A588-14D73E794AEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetKit.Wpf.Printing.Demo", "DotNetKit.Wpf.Printing.Demo\DotNetKit.Wpf.Printing.Demo.csproj", "{D9C9A70F-FD12-4AFE-A7E0-4C0AB3F7C110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A3DB768-7294-49FB-A588-14D73E794AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3DB768-7294-49FB-A588-14D73E794AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3DB768-7294-49FB-A588-14D73E794AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3DB768-7294-49FB-A588-14D73E794AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C9A70F-FD12-4AFE-A7E0-4C0AB3F7C110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C9A70F-FD12-4AFE-A7E0-4C0AB3F7C110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C9A70F-FD12-4AFE-A7E0-4C0AB3F7C110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C9A70F-FD12-4AFE-A7E0-4C0AB3F7C110}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
