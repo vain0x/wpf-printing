@@ -114,6 +114,9 @@ namespace DotNetKit.Windows.Documents
         /// <param name="printable"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
+        /// <exception cref="InfinitePaginationException">
+        /// Thrown when the page size is too small.
+        /// </exception>
         public IEnumerable Paginate(IDataGridPrintable<TItem> printable, Size pageSize)
         {
             var allItems = printable.Items.ToArray();
