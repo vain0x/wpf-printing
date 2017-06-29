@@ -26,7 +26,6 @@ namespace DotNetKit.Windows.Controls
         , IPrintableDataGrid
     {
         readonly Grid grid;
-        readonly StackPanel stackPanel;
 
         readonly ObservableCollection<PrintableDataGridColumn> columns =
             new ObservableCollection<PrintableDataGridColumn>();
@@ -250,10 +249,13 @@ namespace DotNetKit.Windows.Controls
         /// </summary>
         public PrintableDataGrid()
         {
-            grid = new Grid();
-            stackPanel = new StackPanel();
-            stackPanel.Children.Add(grid);
-            Content = stackPanel;
+            grid =
+                new Grid()
+                {
+                    ClipToBounds = true,
+                };
+
+            Content = grid;
 
             InitializeComponent();
         }
