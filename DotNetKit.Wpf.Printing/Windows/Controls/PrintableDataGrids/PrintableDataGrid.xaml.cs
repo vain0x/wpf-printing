@@ -199,39 +199,6 @@ namespace DotNetKit.Windows.Controls
             }
         }
 
-        void OnColumnAdded(IEnumerable<PrintableDataGridColumn> columns, int columnIndex)
-        {
-            foreach (var column in columns)
-            {
-                AddColumnDefinition(column);
-                AddHeaderCell(columnIndex);
-
-                if (items != null)
-                {
-                    var rowIndex = 1;
-                    foreach (var item in items)
-                    {
-                        AddRowCell(rowIndex, columnIndex, item);
-                        rowIndex++;
-                    }
-                }
-
-                columnIndex++;
-            }
-        }
-
-        void OnColumnsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Add
-                && grid.ColumnDefinitions.Count == e.NewStartingIndex)
-            {
-                OnColumnAdded(e.NewItems.Cast<PrintableDataGridColumn>(), e.NewStartingIndex);
-                return;
-            }
-
-            Reset();
-        }
-
         #region IPrintableDataGrid
         const int HeaderRowCount = 1;
 
